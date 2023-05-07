@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/home/baeziy/Desktop/project/networks_project/nokia.py", line 27, in <module>
+    display = adafruit_pcd8544.PCD8544(spi, dc, cs, reset_pin)
+  File "/usr/local/lib/python3.9/dist-packages/adafruit_pcd8544.py", line 84, in __init__
+    dc_pin.switch_to_output(value=False)
+AttributeError: 'int' object has no attribute 'switch_to_output'

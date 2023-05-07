@@ -4,10 +4,10 @@ import digitalio
 from PIL import Image, ImageDraw, ImageFont
 import adafruit_pcd8544
 
-spi = busio.SPI(board.GPIO11, MOSI=board.GPIO10)
-dc = digitalio.DigitalInOut(board.GPIO24)  # data/command
-cs = digitalio.DigitalInOut(board.GPIO8)  # Chip select
-reset = digitalio.DigitalInOut(board.GPIO25)  # reset
+spi = busio.SPI(board.SCLK, MOSI=board.MOSI)
+dc = digitalio.DigitalInOut(board.D18)  # data/command
+cs = digitalio.DigitalInOut(board.CE0)  # Chip select
+reset = digitalio.DigitalInOut(board.D22)  # reset
 
 display = adafruit_pcd8544.PCD8544(spi, dc, cs, reset)
 
@@ -16,7 +16,7 @@ display.bias = 4
 display.contrast = 60
 
 # Turn on the Backlight LED
-backlight = digitalio.DigitalInOut(board.GPIO17)  # backlight
+backlight = digitalio.DigitalInOut(board.D17)  # backlight
 backlight.switch_to_output()
 backlight.value = True
 

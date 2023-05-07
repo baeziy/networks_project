@@ -1,18 +1,5 @@
-# SPDX-FileCopyrightText: 2021 ladyada for Adafruit Industries
-# SPDX-License-Identifier: MIT
-
-"""
-This demo will fill the screen with white, draw a black box on top
-and then print Hello World! in the center of the display
-
-This example is for use on (Linux) computers that are using CPython with
-Adafruit Blinka to support CircuitPython libraries. CircuitPython does
-not support PIL/pillow (python imaging library)!
-"""
-
-import board
-import busio
-import digitalio
+import RPi.GPIO as GPIO
+import spidev
 from PIL import Image, ImageDraw, ImageFont
 import adafruit_pcd8544
 
@@ -20,23 +7,31 @@ import adafruit_pcd8544
 BORDER = 5
 FONTSIZE = 10
 
-spi = busio.SPI(board.SCK, MOSI=board.MOSI)
-dc = digitalio.DigitalInOut(board.D24)  # data/command
-cs = digitalio.DigitalInOut(board.CE0)  # Chip select
-reset = digitalio.DigitalInOut(board.D25)  # reset
+# Use BCM pin numbering
+GPIO.setmode(GPIO.BCM)
 
+spi = spidev.SpiDev()
+spi.open(0, 0)
+spi.max_speed_hz = 4000000
 
+dc = 24
+cs = 8
+reset_pin = 25
+backlight_pin = 17
 
-display = adafruit_pcd8544.PCD8544(spi, dc, cs, reset)
+GPIO.setup(dc, GPIO.OUT)
+GPIO.setup(cs, GPIO.OUT)
+GPIO.setup(reset_pin, GPIO.OUT)
+GPIO.setup(backlight_pin, GPIO.OUT)
+
+display = adafruit_pcd8544.PCD8544(spi, dc, cs, reset_pin)
 
 # Contrast and Brightness Settings
 display.bias = 4
 display.contrast = 60
 
 # Turn on the Backlight LED
-backlight = digitalio.DigitalInOut(board.D17)  # backlight
-backlight.switch_to_output()
-backlight.value = True
+GPIO.output(backlight_pin, GPIO.HIGH)
 
 # Clear display.
 display.fill(0)
@@ -51,7 +46,6 @@ draw = ImageDraw.Draw(image)
 
 # Draw a black background
 draw.rectangle((0, 0, display.width, display.height), outline=255, fill=255)
-
 
 # Draw a smaller inner rectangle
 draw.rectangle(

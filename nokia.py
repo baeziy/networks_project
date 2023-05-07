@@ -1,23 +1,14 @@
-import RPi.GPIO as GPIO
-from luma.core.interface.serial import spi
-from luma.core.render import canvas
-from luma.lcd.device import pcd8544
+import time
+from pcd8544 import PCD8544
 
-# Set up the backlight
-backlight_pin = 18
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(backlight_pin, GPIO.OUT)
-GPIO.output(backlight_pin, True)  # Turn on the backlight
-
-# Set up the SPI bus
-serial = spi(port=0, device=0, gpio_DC=23, gpio_RST=24)
-
-# Initialize the Nokia 5110 display
-device = pcd8544(serial)
+# Set up the Nokia 5110 display
+display = PCD8544()
 
 # Clear the display
-device.clear()
+display.clear()
 
 # Display a text message
-with canvas(device) as draw:
-    draw.text((0, 0), "Hello, Nokia 5110!", fill="white")
+display.text("Hello, Nokia 5110!", 0, 0)
+display.display()
+
+time.sleep(5)  # Keep the message displayed for 5 seconds

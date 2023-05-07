@@ -1,6 +1,13 @@
+import RPi.GPIO as GPIO
 from luma.core.interface.serial import spi
 from luma.core.render import canvas
 from luma.lcd.device import pcd8544
+
+# Set up the backlight
+backlight_pin = 18
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(backlight_pin, GPIO.OUT)
+GPIO.output(backlight_pin, True)  # Turn on the backlight
 
 # Set up the SPI bus
 serial = spi(port=0, device=0, gpio_DC=23, gpio_RST=24)

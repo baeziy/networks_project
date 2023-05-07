@@ -6,7 +6,7 @@ import adafruit_pcd8544
 # Parameters to Change
 BORDER = 5
 FONTSIZE = 10
-
+#haha
 # Use BCM pin numbering
 GPIO.setmode(GPIO.BCM)
 

@@ -1,82 +1,76 @@
 # SPDX-FileCopyrightText: 2021 ladyada for Adafruit Industries
 # SPDX-License-Identifier: MIT
 
-import time
+"""
+This demo will fill the screen with white, draw a black box on top
+and then print Hello World! in the center of the display
+
+This example is for use on (Linux) computers that are using CPython with
+Adafruit Blinka to support CircuitPython libraries. CircuitPython does
+not support PIL/pillow (python imaging library)!
+"""
+
 import board
 import busio
 import digitalio
-
+from PIL import Image, ImageDraw, ImageFont
 import adafruit_pcd8544
 
-# Initialize SPI bus and control pins
+# Parameters to Change
+BORDER = 5
+FONTSIZE = 10
+
 spi = busio.SPI(board.SCK, MOSI=board.MOSI)
 dc = digitalio.DigitalInOut(board.D6)  # data/command
-cs = digitalio.DigitalInOut(board.D5)  # Chip select
-reset = digitalio.DigitalInOut(board.D9)  # reset
+cs = digitalio.DigitalInOut(board.CE0)  # Chip select
+reset = digitalio.DigitalInOut(board.D5)  # reset
 
 display = adafruit_pcd8544.PCD8544(spi, dc, cs, reset)
 
+# Contrast and Brightness Settings
 display.bias = 4
 display.contrast = 60
 
 # Turn on the Backlight LED
-backlight = digitalio.DigitalInOut(board.D10)  # backlight
+backlight = digitalio.DigitalInOut(board.D13)  # backlight
 backlight.switch_to_output()
 backlight.value = True
 
-print("Pixel test")
-# Clear the display.  Always call show after changing pixels to make the display
-# update visible!
+# Clear display.
 display.fill(0)
 display.show()
 
-# Set a pixel in the origin 0,0 position.
-display.pixel(0, 0, 1)
-# Set a pixel in the middle position.
-display.pixel(display.width // 2, display.height // 2, 1)
-# Set a pixel in the opposite corner position.
-display.pixel(display.width - 1, display.height - 1, 1)
-display.show()
-time.sleep(2)
+# Create blank image for drawing.
+# Make sure to create image with mode '1' for 1-bit color.
+image = Image.new("1", (display.width, display.height))
 
-print("Lines test")
-# we'll draw from corner to corner, lets define all the pair coordinates here
-corners = (
-    (0, 0),
-    (0, display.height - 1),
-    (display.width - 1, 0),
-    (display.width - 1, display.height - 1),
+# Get drawing object to draw on image.
+draw = ImageDraw.Draw(image)
+
+# Draw a black background
+draw.rectangle((0, 0, display.width, display.height), outline=255, fill=255)
+
+
+# Draw a smaller inner rectangle
+draw.rectangle(
+    (BORDER, BORDER, display.width - BORDER - 1, display.height - BORDER - 1),
+    outline=0,
+    fill=0,
 )
 
-display.fill(0)
-for corner_from in corners:
-    for corner_to in corners:
-        display.line(corner_from[0], corner_from[1], corner_to[0], corner_to[1], 1)
+# Load a TTF font.
+font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", FONTSIZE)
+
+# Draw Some Text
+text = "Hello World!"
+(font_width, font_height) = font.getsize(text)
+draw.text(
+    (display.width // 2 - font_width // 2, display.height // 2 - font_height // 2),
+    text,
+    font=font,
+    fill=255,
+)
+
+# Display image
+display.image(image)
 display.show()
-time.sleep(2)
-
-print("Rectangle test")
-display.fill(0)
-w_delta = display.width / 10
-h_delta = display.height / 10
-for i in range(11):
-    display.rect(0, 0, int(w_delta * i), int(h_delta * i), 1)
-display.show()
-time.sleep(2)
-
-print("Text test")
-display.fill(0)
-display.text("hello world", 0, 0, 1)
-display.text("this is the", 0, 8, 1)
-display.text("CircuitPython", 0, 16, 1)
-display.text("adafruit lib-", 0, 24, 1)
-display.text("rary for the", 0, 32, 1)
-display.text("PCD8544! :) ", 0, 40, 1)
-
-display.show()
-
-while True:
-    display.invert = True
-    time.sleep(0.5)
-    display.invert = False
-    time.sleep(0.5)

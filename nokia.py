@@ -1,21 +1,16 @@
-import board
-import busio
-import digitalio
-from adafruit_pcd8544 import PCD8544
+from luma.core.interface.serial import spi
+from luma.core.render import canvas
+from luma.lcd.device import pcd8544
 
 # Set up the SPI bus
-spi = busio.SPI(board.SCLK, MOSI=board.MOSI)
-cs = digitalio.DigitalInOut(board.CE0)  # Chip Select
-dc = digitalio.DigitalInOut(board.D23)  # Data/Command
-rst = digitalio.DigitalInOut(board.D24)  # Reset
+serial = spi(port=0, device=0, gpio_DC=23, gpio_RST=24)
 
 # Initialize the Nokia 5110 display
-display = PCD8544(spi, cs, dc, rst)
+device = pcd8544(serial)
 
 # Clear the display
-display.fill(0)
-display.show()
+device.clear()
 
 # Display a text message
-display.text("Hello, Nokia 5110!", 0, 0, 1)
-display.show()
+with canvas(device) as draw:
+    draw.text((0, 0), "Hello, Nokia 5110!", fill="white")

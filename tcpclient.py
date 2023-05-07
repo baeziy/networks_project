@@ -5,6 +5,7 @@ TCP_IP = '192.168.18.70'  # Replace with the actual IP
 TCP_PORT = 5005
 BUFFER_SIZE = 1024
 
+print("going to connect to server")
 # Create a socket and connect to the server
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect((TCP_IP, TCP_PORT))

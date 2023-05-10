@@ -11,12 +11,14 @@ pwm.start(0)  # Start the PWM with a duty cycle of 0% (fan off)
 
 try:
     while True:
-        for duty_cycle in range(0, 101, 5):  # Ramp up from 0% to 100% in 5% increments
-            pwm.ChangeDutyCycle(duty_cycle)
-            time.sleep(0.5)
-        for duty_cycle in range(100, -1, -5):  # Ramp down from 100% to 0% in 5% increments
-            pwm.ChangeDutyCycle(duty_cycle)
-            time.sleep(0.5)
+        pwm.ChangeDutyCycle(0)  # 0% duty cycle (fan off)
+        time.sleep(2)  # Wait for 2 seconds
+
+        pwm.ChangeDutyCycle(50)  # 50% duty cycle (medium speed)
+        time.sleep(2)  # Wait for 2 seconds
+
+        pwm.ChangeDutyCycle(100)  # 100% duty cycle (full speed)
+        time.sleep(2)  # Wait for 2 seconds
 except KeyboardInterrupt:
     pwm.stop()  # Stop the PWM
     GPIO.cleanup()  # Clean up the GPIO state when interrupted

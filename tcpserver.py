@@ -1,48 +1,42 @@
-import socket
 import RPi.GPIO as GPIO
+import socket
+import time
 
-# Set up the GPIO pin for the LED
-LED_PIN = 18
+# GPIO setup
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(LED_PIN, GPIO.OUT)
+control_pin = 18
+GPIO.setup(control_pin, GPIO.OUT)
+pwm = GPIO.PWM(control_pin, 100)
+pwm.start(0)
 
-# Set up the server
-TCP_IP = '0.0.0.0'
-TCP_PORT = 5005
-BUFFER_SIZE = 1024
-
-# Create a socket and bind it to the IP and port
+# TCP server setup
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server_socket.bind((TCP_IP, TCP_PORT))
-
-# Start listening for connections
+server_socket.bind(('0.0.0.0', 12345))  # Replace 12345 with the desired port number
 server_socket.listen(1)
 
-print("Server is ready to receive connections...")
-
-while True:
-    # Accept a connection from a client
-    conn, addr = server_socket.accept()
-    print("Connection from:", addr)
-
+def handle_client(client_socket):
     while True:
-        # Receive a message from the client
-        data = conn.recv(BUFFER_SIZE)
+        data = client_socket.recv(1024)
         if not data:
             break
 
-        message = data.decode('utf-8')
-        print("Received message:", message)
+        duty_cycle = int(data)
+        if 0 <= duty_cycle <= 100:
+            pwm.ChangeDutyCycle(duty_cycle)
+            client_socket.sendall(b'Speed changed')
+        else:
+            client_socket.sendall(b'Invalid duty cycle')
 
-        if message == "ON":
-            GPIO.output(LED_PIN, GPIO.HIGH)
-        elif message == "OFF":
-            GPIO.output(LED_PIN, GPIO.LOW)
+    client_socket.close()
 
-    # Close the connection
-    conn.close()
+try:
+    while True:
+        print('Waiting for connection...')
+        client_socket, client_address = server_socket.accept()
+        print(f'Connected to {client_address}')
+        handle_client(client_socket)
 
-# Clean up GPIO and close the socket (unreachable in this example)
-GPIO.cleanup()
-server_socket.close()
-
+except KeyboardInterrupt:
+    pwm.stop()
+    GPIO.cleanup()
+    server_socket.close()

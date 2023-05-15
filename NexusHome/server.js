@@ -34,9 +34,10 @@ app.get('/state/:device/:state', function (req, res) {
     res.send('Device ' + device + ' set to ' + state);
 });
 
-const server = app.listen(3000, function () {
-    console.log('Server is running on http://localhost:3000');
+app.listen(3000, '0.0.0.0', function () {
+    console.log('Server is running on http://0.0.0.0:3000');
 });
+
 
 const wss = new WebSocket.Server({ server });
 

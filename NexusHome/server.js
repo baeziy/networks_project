@@ -3,10 +3,13 @@ const app = express();
 const http = require('http');
 const mqtt = require('mqtt');
 const WebSocket = require('ws');
+const { Gpio } = require('onoff'); // import Gpio
 
 const client = mqtt.connect('mqtt://localhost');
 let fanSpeed = 'off';
 let connectedClients = [];
+
+const fan = new Gpio(18, 'out'); // Create a new instance of Gpio for the fan
 
 client.on('connect', function () {
     client.subscribe('fan/speed');
@@ -16,7 +19,27 @@ client.on('message', function (topic, message) {
     if (topic === 'fan/speed') {
         fanSpeed = message.toString();
         console.log('Received fan speed: ' + fanSpeed);
-        // Adjust the fan speed here based on the received message
+
+        let dutyCycle;
+        switch (fanSpeed) {
+            case 'off':
+                dutyCycle = 0;
+                break;
+            case 'low':
+                dutyCycle = 25;
+                break;
+            case 'medium':
+                dutyCycle = 50;
+                break;
+            case 'high':
+                dutyCycle = 100;
+                break;
+            default:
+                console.log(`Invalid fan speed: ${fanSpeed}`);
+                return;
+        }
+
+        fan.pwmWrite(dutyCycle);
 
         // Send the updated fan speed to connected WebSocket clients
         connectedClients.forEach((client) => {
@@ -31,7 +54,7 @@ app.get('/state/:device/:state', function (req, res) {
     const device = req.params.device;
     const state = req.params.state;
 
-    client.publish(device, state);
+    client.publish(device + '/speed', state);
     res.send('Device ' + device + ' set to ' + state);
 });
 

@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const http = require('http');
 const mqtt = require('mqtt');
 const WebSocket = require('ws');
 
@@ -34,10 +35,10 @@ app.get('/state/:device/:state', function (req, res) {
     res.send('Device ' + device + ' set to ' + state);
 });
 
-app.listen(3000, '0.0.0.0', function () {
+const server = http.createServer(app);
+server.listen(3000, '0.0.0.0', function () {
     console.log('Server is running on http://0.0.0.0:3000');
 });
-
 
 const wss = new WebSocket.Server({ server });
 

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fan Control</title>
+</head>
+<body>
+    <h1>Fan Control</h1>
+    <button onclick="sendFanSpeed('off')">Off</button>
+    <button onclick="sendFanSpeed('low')">Low</button>
+    <button onclick="sendFanSpeed('medium')">Medium</button>
+    <button onclick="sendFanSpeed('high')">High</button>
+
+    <script>
+        function sendFanSpeed(speed) {
+            fetch('/state/fan/speed/' + speed)
+                .then(function (response) {
+                    return response.text();
+                })
+                .then(function (text) {
+                    console.log(text);
+                });
+        }
+    </script>
+</body>
+</html>

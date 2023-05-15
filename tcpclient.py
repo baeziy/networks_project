@@ -1,7 +1,7 @@
 import socket
 
-server_ip = 'your_raspberry_pi_ip_address'
-server_port = 12345
+server_ip = '172.30.64.37'
+server_port = 12346
 
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect((server_ip, server_port))

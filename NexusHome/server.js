@@ -3,13 +3,14 @@ const app = express();
 const http = require('http');
 const mqtt = require('mqtt');
 const WebSocket = require('ws');
-const { Gpio } = require('onoff'); // import Gpio
+const Gpio = require('pigpio').Gpio;
 
 const client = mqtt.connect('mqtt://localhost');
 let fanSpeed = 'off';
 let connectedClients = [];
 
-const fan = new Gpio(18, 'out'); // Create a new instance of Gpio for the fan
+const fan = new Gpio(18, {mode: Gpio.OUTPUT}); // Create a new instance of Gpio for the fan
+fan.pwmWrite(0); // Set the fan to off at startup
 
 client.on('connect', function () {
     client.subscribe('fan/speed');
@@ -26,13 +27,13 @@ client.on('message', function (topic, message) {
                 dutyCycle = 0;
                 break;
             case 'low':
-                dutyCycle = 25;
+                dutyCycle = 64; // 25% of 255
                 break;
             case 'medium':
-                dutyCycle = 50;
+                dutyCycle = 128; // 50% of 255
                 break;
             case 'high':
-                dutyCycle = 100;
+                dutyCycle = 255; // 100% of 255
                 break;
             default:
                 console.log(`Invalid fan speed: ${fanSpeed}`);

@@ -1,0 +1,540 @@
+
+* 
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body
+{
+    background-color: rgb(53, 97, 192);
+}
+
+.light
+{
+    background-color: rgb(199, 194, 49);
+}
+
+.dark
+{
+    background-color: rgb(53, 97, 192);
+}
+
+.boundary
+{
+    height: 500px;
+    width: 500px;
+    border: solid black;
+    position: absolute;
+    left: 470px;
+    background-color: bisque;
+    box-shadow: 0px 5px 5px rgb(51, 53, 51);
+    border-radius: 10%;
+}
+
+.fanspeed
+{
+    text-align: center;
+    width: 300px;
+    height: 300px;
+    border: 3px solid black;
+    position: relative; 
+    margin: 50px ;
+    border-radius: 50%;
+    background-color: white;
+    top: 50px; 
+    left: 520px;
+}
+
+.caption
+{
+    width: 180px;
+    text-align: center;
+    font-weight: bolder;
+    font-size: x-large;
+    position: absolute;
+    left: 58px;
+    top: 95px;
+    z-index: 5;
+}
+
+.mode
+{
+    width: 180px;
+    border: solid black;
+    background-color: rgb(98, 255, 103);
+    text-align: center;
+    font-weight: bolder;
+    font-size: large;
+    position: absolute;
+    left: 58px;
+    top: 60px;
+    z-index: 5; 
+}
+
+.midpoint
+{
+    width: 20px;
+    height: 20px;
+    background-color: black;
+    border-radius: 50%;
+    position: absolute;
+    top: 137px;
+    left: 137px;
+    z-index: 2;
+}
+
+.speedscale
+{
+    width: 8px;
+    height: 280px;
+    background-color: black;
+    position: absolute;
+    left: 143px;
+    top: 7px;
+    transform: rotate(-90deg);
+}
+
+.clear_center
+{
+    width: 250px;
+    height: 250px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 22px;
+    left: 22px;
+    z-index: 1;
+}
+
+.clear_bottomhalf
+{
+    width: 300px;
+    height: 150px;
+    background-color: bisque;
+    position: absolute;
+    z-index: 3;
+    top: 160px;
+    left: -4px;
+    border-radius: 0% 0% 50% 50%;
+    border-top: 1px solid black;
+}
+
+.speedscale-1
+{
+    transform: rotate(-90deg);
+}
+
+.speedscale-2
+{
+    transform: rotate(-80deg);    
+}
+
+.speedscale-3
+{
+    transform: rotate(-70deg);    
+}
+
+.speedscale-4
+{
+    transform: rotate(-60deg);    
+}
+
+.speedscale-5
+{
+    transform: rotate(-50deg);    
+}
+
+.speedscale-6
+{
+    transform: rotate(-40deg);    
+}
+
+.speedscale-7
+{
+    transform: rotate(-30deg);    
+}
+
+.speedscale-8
+{
+    transform: rotate(-20deg);    
+}
+
+.speedscale-9
+{
+    transform: rotate(-10deg);    
+}
+
+.speedscale-10
+{
+    transform: rotate(0deg);    
+}
+
+.speedscale-11
+{
+    transform: rotate(10deg);    
+}
+
+.speedscale-12
+{
+    transform: rotate(20deg);    
+}
+
+.speedscale-13
+{
+    transform: rotate(30deg);    
+}
+
+.speedscale-14
+{
+    transform: rotate(40deg);    
+}
+
+.speedscale-15
+{
+    transform: rotate(50deg);    
+}
+
+.speedscale-16
+{
+    transform: rotate(60deg);    
+}
+
+.speedscale-17
+{
+    transform: rotate(70deg);    
+}
+
+.speedscale-18
+{
+    transform: rotate(80deg);    
+}
+
+.speedscale-19
+{
+    transform: rotate(90deg); 
+    height: 244px;
+    top: 25px;
+    left: 161px;   
+}
+
+.speedscale-1.active
+{
+    background-color: rgb(1, 96, 1);
+}
+
+.speedscale-2.active
+{
+    background-color: rgb(6, 148, 6);
+}
+
+.speedscale-3.active
+{
+    background-color: rgb(39, 219, 39);
+}
+
+.speedscale-4.active
+{
+    background-color: rgb(59, 238, 59);
+}
+
+.speedscale-5.active
+{
+    background-color: rgb(59, 245, 59);
+}
+
+.speedscale-6.active
+{
+    background-color: rgb(99, 248, 99);
+}
+
+.speedscale-7.active
+{
+    background-color: rgb(255, 238, 83);
+}
+
+.speedscale-8.active
+{
+    background-color: rgb(252, 255, 47);
+}
+
+.speedscale-9.active
+{
+    background-color: rgb(253, 233, 47);
+}
+
+.speedscale-10.active
+{
+    background-color: rgb(255, 227, 12);
+}
+
+.speedscale-11.active
+{
+    background-color: rgb(255, 198, 75);
+}
+
+.speedscale-12.active
+{
+    background-color: rgb(255, 150, 31);
+}
+
+.speedscale-13.active
+{
+    background-color: rgb(252, 139, 17);
+}
+
+.speedscale-14.active
+{
+    background-color: rgb(255, 115, 45);
+}
+
+.speedscale-15.active
+{
+    background-color: rgb(237, 119, 0);
+}
+
+.speedscale-16.active
+{
+    background-color: rgb(243, 69, 69);
+}
+
+.speedscale-17.active
+{
+    background-color: rgb(251, 29, 29);
+}
+
+.speedscale-18.active
+{
+    background-color: rgb(246, 23, 23);
+}
+
+.speedscale-19.active
+{
+    background-color: rgb(255, 0, 0);
+}
+
+.needle-container
+{
+    width: 160px;
+    height: 160px;
+    background-color: transparent;
+    position: absolute;
+    z-index: 3;
+    top: 67px;
+    left: 67px;
+    z-index: 6;
+}
+
+.needle_wrapper
+{
+    width: 160px;
+    height: 160px;
+    background-color: transparent;
+    position: relative;
+    transition: all 0.4s;
+}
+
+.needle
+{
+    width: 110px;
+    height: 4px;
+    background-color: red;
+    position: absolute;
+    top: 78px;
+    left: -30px;
+}
+
+.speed-0
+{
+    transform: rotate(0deg);
+}
+
+.speed-10
+{
+    transform: rotate(10deg);
+}
+
+.speed-20
+{
+    transform: rotate(20deg);
+}
+
+.speed-30
+{
+    transform: rotate(30deg);
+}
+
+.speed-40
+{
+    transform: rotate(40deg);
+}
+
+.speed-50
+{
+    transform: rotate(50deg);
+}
+
+.speed-60
+{
+    transform: rotate(60deg);
+}
+
+
+.speed-70
+{
+    transform: rotate(70deg);
+}
+
+.speed-80
+{
+    transform: rotate(80deg);
+}
+
+.speed-90
+{
+    transform: rotate(90deg);
+}
+
+.speed-100
+{
+    transform: rotate(100deg);
+}
+
+.speed-110
+{
+    transform: rotate(110deg);
+}
+
+.speed-120
+{
+    transform: rotate(120deg);
+}
+
+.speed-130
+{
+    transform: rotate(130deg);
+}
+
+.speed-140
+{
+    transform: rotate(140deg);
+}
+
+.speed-150
+{
+    transform: rotate(150deg);
+}
+
+.speed-160
+{
+    transform: rotate(160deg);
+}
+
+.speed-170
+{
+    transform: rotate(170deg);
+}
+
+.speed-180
+{
+    transform: rotate(180deg);
+}
+
+.change_state
+{
+    text-align: center;
+    position: relative;
+    top: -100px;
+    z-index: 7;   
+}
+
+button
+{
+    width: 200px;
+    height: 60px;
+    border: solid black;
+    border-radius: 5px;
+    margin: 10px;
+    font-family: monospace;
+    font-size: x-large;
+    font-weight: bolder;
+    color: aliceblue;
+    cursor: pointer;
+    display: block;
+    position: relative;
+    left: 610px;
+    border-radius: 5%;
+}
+
+button:active
+{
+    box-shadow: 5px 5px 5px white;
+}
+
+.green
+{
+    background-color: rgb(11, 123, 11);
+    box-shadow: 0px 5px 5px rgb(129, 254, 127);
+}
+
+.red 
+{
+    background-color: red;
+    box-shadow: 0px 5px 5px rgb(255, 100, 100);
+}
+
+.special
+{
+    box-shadow: 0px 7px 10px rgb(255, 76, 76);
+}
+
+.blue
+{
+    background-color: rgb(55, 0, 255);
+    box-shadow: 0px 5px 5px rgb(94, 242, 255);
+}
+
+.switch
+{
+    position: relative;
+    top: 0px;
+}
+
+@media screen and (max-width: 600px)
+{
+    .boundary
+    {
+        left: 37px;
+    }
+
+    .fanspeed
+    {
+        left: 87px;
+    }
+
+    button
+    {
+        left: 177px;
+    }
+
+}
+
+@media screen and (min-width: 601px) and (max-width: 960px)
+{
+    .boundary
+    {
+        left: 235px;
+    }
+
+    .fanspeed
+    {
+        left: 285px;
+    }
+
+    button
+    {
+        left: 375px;
+    }
+
+}

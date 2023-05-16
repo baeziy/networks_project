@@ -7,13 +7,17 @@ const Gpio = require('pigpio').Gpio;
 
 const client = mqtt.connect('mqtt://localhost');
 let fanSpeed = 'off';
+let ledState = 'off'; 
 let connectedClients = [];
 
 const fan = new Gpio(18, {mode: Gpio.OUTPUT}); // Create a new instance of Gpio for the fan
+const led = new Gpio(17, {mode: Gpio.OUTPUT});
 fan.pwmWrite(0); // Set the fan to off at startup
+led.digitalWrite(0); // set the LED to off at startup
 
 client.on('connect', function () {
     client.subscribe('fan/speed');
+    client.subscribe('led/state'); // subscribe to LED state topic
 });
 
 client.on('message', function (topic, message) {
@@ -39,12 +43,33 @@ client.on('message', function (topic, message) {
                 console.log(`Invalid fan speed: ${fanSpeed}`);
                 return;
         }
+    
 
         fan.pwmWrite(dutyCycle);
 
         // Send the updated fan speed to connected WebSocket clients
         connectedClients.forEach((client) => {
             client.send(fanSpeed);
+        });
+    }
+    else if (topic === 'led/state') { // new block to handle LED messages
+        ledState = message.toString();
+        console.log('Received LED state: ' + ledState);
+
+        switch (ledState) {
+            case 'off':
+                led.digitalWrite(0);
+                break;
+            case 'on':
+                led.digitalWrite(1);
+                break;
+            default:
+                console.log(`Invalid LED state: ${ledState}`);
+                return;
+        }
+         // Send the updated LED state to connected WebSocket clients
+         connectedClients.forEach((client) => {
+            client.send(JSON.stringify({device: 'led', state: ledState}));
         });
     }
 });
@@ -55,7 +80,12 @@ app.get('/state/:device/:state', function (req, res) {
     const device = req.params.device;
     const state = req.params.state;
 
-    client.publish(device + '/speed', state);
+    if (device === 'led') {
+        client.publish(device + '/state', state); // use '/state' for LED
+    } else {
+        client.publish(device + '/speed', state); // use '/speed' for fan
+    }
+    
     res.send('Device ' + device + ' set to ' + state);
 });
 

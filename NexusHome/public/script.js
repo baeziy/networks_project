@@ -15,7 +15,7 @@ socket.addEventListener('message', function (event) {
     }
 });
 
-
+var test = 0;
 var speed = 0;
 var prev_speed = 0;
 var currentScale = 1;

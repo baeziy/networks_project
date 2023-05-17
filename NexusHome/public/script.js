@@ -10,7 +10,12 @@ socket.addEventListener('message', function (event) {
     if (data.ledState !== undefined) {
         const ledState = data.ledState === 'on' ? 'ON' : 'OFF';
         document.getElementById("switch").innerHTML = ledState;
-        document.getElementById("light").className = data.ledState;
+        if(data.ledState === 'on'){
+            document.getElementById("light").className = "light";
+        }
+        else{
+            document.getElementById("light").className = "dark";
+        }
         console.log('New LED state:', data.ledState);
     }
 });

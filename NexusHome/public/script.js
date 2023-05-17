@@ -3,13 +3,15 @@ const socket = new WebSocket('ws://192.168.18.70:3000');
 socket.addEventListener('message', function (event) {
     const data = JSON.parse(event.data);
 
-    if (data.type === 'fanSpeed') {
-        // Update your fan speed display here
-        console.log('New fan speed:', data.message);
+    if (data.device === 'fan') {
+        document.getElementById("mode").innerHTML = data.state.toUpperCase();
+        console.log('New fan speed:', data.state);
     }
-    else if (data.type === 'ledState') {
-        // Update your LED state display here
-        console.log('New LED state:', data.message);
+    else if (data.device === 'led') {
+        const ledState = data.state === 'on' ? 'ON' : 'OFF';
+        document.getElementById("switch").innerHTML = ledState;
+        document.getElementById("light").className = data.state;
+        console.log('New LED state:', data.state);
     }
 });
 

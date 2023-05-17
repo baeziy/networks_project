@@ -5,6 +5,7 @@ socket.addEventListener('message', function (event) {
 
     if (data.fanSpeed !== undefined) {
         document.getElementById("mode").innerHTML = data.fanSpeed.toUpperCase();
+
         console.log('New fan speed:', data.fanSpeed);
     }
     if (data.ledState !== undefined) {
@@ -12,9 +13,11 @@ socket.addEventListener('message', function (event) {
         document.getElementById("switch").innerHTML = ledState;
         if(data.ledState === 'on'){
             document.getElementById("light").className = "light";
+            document.getElementById("switch").className = "green"
         }
         else{
             document.getElementById("light").className = "dark";
+            document.getElementById("switch").className = "red"
         }
         console.log('New LED state:', data.ledState);
     }

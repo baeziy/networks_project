@@ -7,72 +7,60 @@ const Gpio = require('pigpio').Gpio;
 
 const client = mqtt.connect('mqtt://localhost');
 let fanSpeed = 'off';
-let ledState = 'off'; 
+let ledState = 'off';
 let connectedClients = [];
 
-const fan = new Gpio(18, {mode: Gpio.OUTPUT}); // Create a new instance of Gpio for the fan
+const fan = new Gpio(18, {mode: Gpio.OUTPUT}); 
 const led = new Gpio(17, {mode: Gpio.OUTPUT});
-fan.pwmWrite(0); // Set the fan to off at startup
-led.digitalWrite(0); // set the LED to off at startup
+fan.pwmWrite(0); 
+led.digitalWrite(0);
 
 client.on('connect', function () {
     client.subscribe('fan/speed');
-    client.subscribe('led/state'); // subscribe to LED state topic
+    client.subscribe('led/state');
 });
 
 client.on('message', function (topic, message) {
-    if (topic === 'fan/speed') {
-        fanSpeed = message.toString();
-        console.log('Received fan speed: ' + fanSpeed);
-
-        let dutyCycle;
-        switch (fanSpeed) {
-            case 'off':
-                dutyCycle = 0;
-                break;
-            case 'low':
-                dutyCycle = 90; // 25% of 255
-                break;
-            case 'medium':
-                dutyCycle = 128; // 50% of 255
-                break;
-            case 'high':
-                dutyCycle = 255; // 100% of 255
-                break;
-            default:
-                console.log(`Invalid fan speed: ${fanSpeed}`);
-                return;
-        }
-    
-
-        fan.pwmWrite(dutyCycle);
-
-        // Send the updated fan speed to connected WebSocket clients
-        connectedClients.forEach((client) => {
-            client.send(fanSpeed);
-        });
+    let msgString = message.toString();
+    switch (topic) {
+        case 'fan/speed':
+            fanSpeed = msgString;
+            handleFanSpeed(fanSpeed);
+            break;
+        case 'led/state':
+            ledState = msgString;
+            handleLedState(ledState);
+            break;
     }
-    else if (topic === 'led/state') { // new block to handle LED messages
-        ledState = message.toString();
-        console.log('Received LED state: ' + ledState);
 
-        switch (ledState) {
-            case 'off':
-                led.digitalWrite(0);
-                break;
-            case 'on':
-                led.digitalWrite(1);
-                break;
-            default:
-                console.log(`Invalid LED state: ${ledState}`);
-                return;
-        }
-         // Send the updated LED state to connected WebSocket clients
-         connectedClients.forEach((client) => {
-            client.send(JSON.stringify({device: 'led', state: ledState}));
-        });
-    }
+    broadcastMessage({fanSpeed, ledState});
 });
+
+function handleFanSpeed(speed) {
+    let dutyCycle;
+    switch (speed) {
+        case 'off':
+            dutyCycle = 0;
+            break;
+        case 'low':
+            dutyCycle = 90; 
+            break;
+        case 'medium':
+            dutyCycle = 128;
+            break;
+        case 'high':
+            dutyCycle = 255; 
+            break;
+        default:
+            console.log(`Invalid fan speed: ${speed}`);
+            return;
+    }
+    fan.pwmWrite(dutyCycle);
+}
+
+function handleLedState(state) {
+    led.digitalWrite(state === 'on' ? 1 : 0);
+}
 
 app.use(express.static('public'));
 
@@ -80,12 +68,7 @@ app.get('/state/:device/:state', function (req, res) {
     const device = req.params.device;
     const state = req.params.state;
 
-    if (device === 'led') {
-        client.publish(device + '/state', state); // use '/state' for LED
-    } else {
-        client.publish(device + '/speed', state); // use '/speed' for fan
-    }
-    
+    client.publish(device + '/' + (device === 'led' ? 'state' : 'speed'), state);
     res.send('Device ' + device + ' set to ' + state);
 });
 
@@ -102,7 +85,6 @@ wss.on('connection', function connection(ws) {
 
     ws.on('message', function incoming(message) {
         console.log('Received WebSocket message:', message);
-        // Handle WebSocket messages if needed
     });
 
     ws.on('close', function close() {
@@ -110,3 +92,9 @@ wss.on('connection', function connection(ws) {
         connectedClients = connectedClients.filter((client) => client !== ws);
     });
 });
+
+function broadcastMessage(message) {
+    connectedClients.forEach((client) => {
+        client.send(JSON.stringify(message));
+    });
+}

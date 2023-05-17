@@ -1,3 +1,18 @@
+const socket = new WebSocket('ws://192.168.18.70:3000');
+
+socket.addEventListener('message', function (event) {
+    const data = JSON.parse(event.data);
+
+    if (data.type === 'fanSpeed') {
+        // Update your fan speed display here
+        console.log('New fan speed:', data.message);
+    }
+    else if (data.type === 'ledState') {
+        // Update your LED state display here
+        console.log('New LED state:', data.message);
+    }
+});
+
 var speed = 0;
 var prev_speed = 0;
 var currentScale = 1;

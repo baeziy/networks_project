@@ -93,11 +93,11 @@ socket.addEventListener('message', function (event) {
         document.getElementById("switch").innerHTML = ledState;
         if(data.ledState === 'on'){
             document.getElementById("light").className = "light";
-            document.getElementById("switch").className = "green"
+            document.getElementById("buttonswitch").className = "green"
         }
         else{
             document.getElementById("light").className = "dark";
-            document.getElementById("switch").className = "red"
+            document.getElementById("buttonswitch").className = "red"
         }
         console.log('New LED state:', data.ledState);
     }

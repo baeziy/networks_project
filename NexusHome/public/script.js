@@ -1,4 +1,4 @@
-const socket = new WebSocket('ws://192.168.18.70:3000');
+const socket = new WebSocket('ws://172.30.69.112:3000');
 
 socket.addEventListener('message', function (event) {
     const data = JSON.parse(event.data);
@@ -296,20 +296,20 @@ function changeActive()
 
 function _switch()
 {
-    var state = document.getElementById("switch").innerHTML;
+    var state = document.getElementById("buttonswitch").innerHTML;
     
     if (state == "OFF")
     {
-        document.getElementById("switch").className = "green"
-        document.getElementById("switch").innerHTML = "ON"
+        document.getElementById("buttonswitch").className = "green"
+        document.getElementById("buttonswitch").innerHTML = "ON"
         document.getElementById("light").className = "light"
         sendLedState('on');
     }
 
     else if (state == "ON")
     {
-        document.getElementById("switch").className = "red"
-        document.getElementById("switch").innerHTML = "OFF"
+        document.getElementById("buttonswitch").className = "red"
+        document.getElementById("buttonswitch").innerHTML = "OFF"
         document.getElementById("light").className = "dark"
         sendLedState('off');
     }

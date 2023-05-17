@@ -5,6 +5,86 @@ socket.addEventListener('message', function (event) {
 
     if (data.fanSpeed !== undefined) {
         document.getElementById("mode").innerHTML = data.fanSpeed.toUpperCase();
+        fanspeed = data.fanSpeed.toUpperCase();
+
+        if (fanspeed == "OFF")
+        {
+            if (speed > 0)
+            {
+                while (speed != 0) 
+                {
+                    speed = speed - 10;
+                    addClass();
+                    changeActive();
+                    currentScale = currentScale - 1;
+                }
+            }
+        }
+
+        else if (fanspeed == "LOW")
+        {
+            if (speed > 50)
+            {
+                while (speed != 50) 
+                {
+                    speed = speed - 10;
+                    addClass();
+                    currentScale = currentScale - 1;
+                    changeActive();
+                }
+            }
+
+            else if (speed < 50)
+            {
+                while (speed != 50) 
+                {
+                    speed = speed + 10;
+                    addClass();
+                    currentScale = currentScale + 1;
+                    changeActive();
+                }  
+            }
+        }
+
+        else if (fanspeed == "MEDIUM")
+        {
+            if (speed > 120)
+            {
+                while (speed != 120) 
+                {
+                    speed = speed - 10;
+                    addClass();
+                    currentScale = currentScale - 1;
+                    changeActive();
+                }
+            }
+
+            else if (speed < 120)
+            {
+                while (speed != 120) 
+                {
+                    speed = speed + 10;
+                    addClass();
+                    currentScale = currentScale + 1;
+                    changeActive();
+                }  
+            }
+        }
+
+        else if (fanspeed == "HIGH")
+        {
+            if (speed < 180)
+            {
+                while (speed != 180) 
+                {
+                    speed = speed + 10;
+                    addClass();
+                    currentScale = currentScale + 1;
+                    changeActive();
+                }
+            }
+        }
+
 
         console.log('New fan speed:', data.fanSpeed);
     }
@@ -40,7 +120,7 @@ function state()
 
     else if (speed > 50 && speed <= 120) 
     {
-        document.getElementById("mode").innerHTML = "MED"
+        document.getElementById("mode").innerHTML = "MEDIUM"
         state = 'medium';
     }
 

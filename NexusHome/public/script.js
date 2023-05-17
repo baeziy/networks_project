@@ -5,7 +5,7 @@ var currentScale = 1;
 function state()
 {
     let state = 'off'
-    
+
     if (speed > 0 && speed <= 50) 
     {
         document.getElementById("mode").innerHTML = "LOW"
@@ -59,6 +59,18 @@ function killswitch()
     document.getElementById("switch").className = "red"
     document.getElementById("switch").innerHTML = "OFF"
     document.getElementById("light").className = "dark"
+
+    sendFanSpeed('off');
+    sendLedState('off');
+
+}
+
+function sendLedState(state) {
+    fetch('/state/led/' + state)
+        .then((response) => {
+            return response.text();
+        })
+        .then((text) => console.log(text))
 }
 
 function increase()
@@ -185,6 +197,7 @@ function _switch()
         document.getElementById("switch").className = "green"
         document.getElementById("switch").innerHTML = "ON"
         document.getElementById("light").className = "light"
+        sendLedState('on');
     }
 
     else if (state == "ON")
@@ -192,6 +205,7 @@ function _switch()
         document.getElementById("switch").className = "red"
         document.getElementById("switch").innerHTML = "OFF"
         document.getElementById("light").className = "dark"
+        sendLedState('off');
     }
 
 }

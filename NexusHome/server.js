@@ -31,7 +31,7 @@ client.on('message', function (topic, message) {
                 dutyCycle = 0;
                 break;
             case 'low':
-                dutyCycle = 64; // 25% of 255
+                dutyCycle = 90; // 25% of 255
                 break;
             case 'medium':
                 dutyCycle = 128; // 50% of 255

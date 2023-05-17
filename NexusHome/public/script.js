@@ -13,10 +13,7 @@ socket.addEventListener('message', function (event) {
             {
                 while (speed != 0) 
                 {
-                    speed = speed - 10;
-                    addClass();
-                    changeActive();
-                    currentScale = currentScale - 1;
+                    decrease();
                 }
             }
         }
@@ -27,24 +24,19 @@ socket.addEventListener('message', function (event) {
             {
                 while (speed != 50) 
                 {
-                    speed = speed - 10;
-                    addClass();
-                    currentScale = currentScale - 1;
-                    changeActive();
+                    decrease();
                 }
             }
 
             else if (speed < 50)
             {
-                while (speed != 50) 
+                while (speed != 50);
                 {
-                    speed = speed + 10;
-                    addClass();
-                    currentScale = currentScale + 1;
-                    changeActive();
-                }  
+                    increase();
+                }
             }
         }
+        
 
         else if (fanspeed == "MEDIUM")
         {
@@ -52,22 +44,17 @@ socket.addEventListener('message', function (event) {
             {
                 while (speed != 120) 
                 {
-                    speed = speed - 10;
-                    addClass();
-                    currentScale = currentScale - 1;
-                    changeActive();
+                    decrease();
                 }
+                
             }
 
             else if (speed < 120)
             {
                 while (speed != 120) 
                 {
-                    speed = speed + 10;
-                    addClass();
-                    currentScale = currentScale + 1;
-                    changeActive();
-                }  
+                    increase();
+                }
             }
         }
 
@@ -77,10 +64,7 @@ socket.addEventListener('message', function (event) {
             {
                 while (speed != 180) 
                 {
-                    speed = speed + 10;
-                    addClass();
-                    currentScale = currentScale + 1;
-                    changeActive();
+                    increase();
                 }
             }
         }
@@ -90,7 +74,7 @@ socket.addEventListener('message', function (event) {
     }
     if (data.ledState !== undefined) {
         const ledState = data.ledState === 'on' ? 'ON' : 'OFF';
-        document.getElementById("switch").innerHTML = ledState;
+        document.getElementById("buttonswitch").innerHTML = ledState;
         if(data.ledState === 'on'){
             document.getElementById("light").className = "light";
             document.getElementById("buttonswitch").className = "green"

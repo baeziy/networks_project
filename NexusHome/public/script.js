@@ -41,7 +41,7 @@ socket.addEventListener('message', function (event)
             if(speed == 0){
                 increase();
             }
-            else if(speed < 120){
+            else if(speed < 180){
                 increase();
             }
         }

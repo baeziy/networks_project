@@ -75,6 +75,7 @@ var currentScale = 1;
 
 function state()
 {
+    console.log(`entered state(): ${speed}"}`)
     let state = 'off'
 
     if (speed > 0 && speed <= 50) 
@@ -100,6 +101,7 @@ function state()
         document.getElementById("mode").innerHTML = "OFF"
     }
 
+    console.log(`exited state(): ${speed}"}`)
     sendFanSpeed(state);
 
 }
@@ -114,6 +116,7 @@ function sendFanSpeed(speed) {
 
 function killswitch()
 {
+    console.log(`entered killswitch(): ${speed}"}`)
     if (speed > 0)
     {
         while (speed !== 0) 
@@ -131,6 +134,7 @@ function killswitch()
     document.getElementById("buttonswitch").innerHTML = "OFF"
     document.getElementById("light").className = "dark"
 
+    console.log(`exited killswitch(): ${speed}"}`)
     state()
 
 }

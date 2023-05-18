@@ -1,9 +1,11 @@
-const socket = new WebSocket('ws://172.30.69.112:3000');
+const socket = new WebSocket('ws://192.168.18.70:3000');
 
-socket.addEventListener('message', function (event) {
+socket.addEventListener('message', function (event) 
+{
     const data = JSON.parse(event.data);
 
-    if (data.fanSpeed !== undefined) {
+    if (data.fanSpeed !== undefined) 
+    {
         document.getElementById("mode").innerHTML = data.fanSpeed.toUpperCase();
         fanspeed = data.fanSpeed.toUpperCase();
 
@@ -69,20 +71,25 @@ socket.addEventListener('message', function (event) {
             }
         }
 
-
         console.log('New fan speed:', data.fanSpeed);
     }
+
     if (data.ledState !== undefined) {
         const ledState = data.ledState === 'on' ? 'ON' : 'OFF';
         document.getElementById("buttonswitch").innerHTML = ledState;
-        if(data.ledState === 'on'){
+
+        if(data.ledState === 'on')
+        {
             document.getElementById("light").className = "light";
             document.getElementById("buttonswitch").className = "green"
         }
-        else{
+
+        else if(data.ledState === 'off')
+        {
             document.getElementById("light").className = "dark";
             document.getElementById("buttonswitch").className = "red"
         }
+
         console.log('New LED state:', data.ledState);
     }
 });

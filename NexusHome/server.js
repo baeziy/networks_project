@@ -22,6 +22,7 @@ client.on('connect', function () {
 
 client.on('message', function (topic, message) {
     let msgString = message.toString();
+    console.log(`Received MQTT message on topic "${topic}": ${msgString}`);
     switch (topic) {
         case 'fan/speed':
             fanSpeed = msgString;
@@ -32,8 +33,6 @@ client.on('message', function (topic, message) {
             handleLedState(ledState);
             break;
     }
-
-    broadcastMessage({fanSpeed, ledState});
 });
 
 function handleFanSpeed(speed) {
@@ -69,6 +68,10 @@ app.get('/state/:device/:state', function (req, res) {
     const state = req.params.state;
 
     client.publish(device + '/' + (device === 'led' ? 'state' : 'speed'), state);
+    
+    // Broadcast the new state to all connected WebSocket clients
+    broadcastMessage({fanSpeed, ledState});
+
     res.send('Device ' + device + ' set to ' + state);
 });
 

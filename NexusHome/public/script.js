@@ -16,6 +16,7 @@ socket.addEventListener('message', function (event)
             }
         }
         else if (fanspeed === "LOW"){
+            console.log(`in LOW of ws: ${speed}"}`)
             if(speed == 0){
                 increase();
             }

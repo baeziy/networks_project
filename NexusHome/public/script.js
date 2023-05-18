@@ -104,7 +104,6 @@ function state()
     console.log(`exited state(): ${speed}}`)
     sendFanSpeed(state);
 
-
 }
 
 function sendFanSpeed(speed) {
@@ -136,8 +135,8 @@ function killswitch()
     document.getElementById("light").className = "dark"
 
     console.log(`exited killswitch(): ${speed}}`)
-    sendLedState('off');
-    state()
+    
+    state();
 
 
 }

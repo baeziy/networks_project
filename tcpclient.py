@@ -1,7 +1,7 @@
 import socket
 
 server_ip = '192.168.18.70'
-server_port = 12346
+server_port = 12344
 
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect((server_ip, server_port))

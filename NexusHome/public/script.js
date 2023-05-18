@@ -73,7 +73,7 @@ var test = 0;
 var speed = 0;
 var prev_speed = 0;
 var currentScale = 1;
-
+let fanspeedBool = true;
 function state()
 {
     console.log(`entered state(): ${speed}}`)
@@ -136,7 +136,7 @@ function killswitch()
     document.getElementById("light").className = "dark"
 
     console.log(`exited killswitch(): ${speed}}`)
-    
+    fanspeedBool = false;
     state();
 
 
@@ -155,7 +155,7 @@ function increase()
     console.log(`entered increase(): ${speed}"}`)
     if (speed < 180)
     {
-        if (speed == 0)
+        if (speed == 0 && fanspeedBool == true)
         {
             while (speed != 50) 
             {
@@ -192,6 +192,7 @@ function increase()
         {
             document.getElementById("state_off").innerHTML = "Decrease Speed"
         }
+        fanspeedBool = true;
         console.log(`exited increase(): ${speed}"}`)
         state()
 

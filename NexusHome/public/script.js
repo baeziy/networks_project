@@ -116,7 +116,7 @@ function killswitch()
 {
     if (speed > 0)
     {
-        while (speed != 0) 
+        while (speed !== 0) 
         {
             speed = speed - 10;
             addClass();
@@ -127,8 +127,8 @@ function killswitch()
         document.getElementById("mode").innerHTML = "OFF"
     }
 
-    document.getElementById("switch").className = "red"
-    document.getElementById("switch").innerHTML = "OFF"
+    document.getElementById("buttonswitch").className = "red"
+    document.getElementById("buttonswitch").innerHTML = "OFF"
     document.getElementById("light").className = "dark"
 
     sendFanSpeed('off');

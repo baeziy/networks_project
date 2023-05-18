@@ -37,6 +37,7 @@ socket.addEventListener('message', function (event)
             }
         }
         else if (fanspeed === "HIGH"){
+            console.log(`Changing on other device: ${speed}"}`)
             if(speed == 0){
                 increase();
             }
@@ -145,6 +146,7 @@ function sendLedState(state) {
 
 function increase()
 {
+    console.log(`Local: ${speed}"}`)
     if (speed < 180)
     {
         if (speed == 0)

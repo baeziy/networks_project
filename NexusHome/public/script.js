@@ -151,7 +151,7 @@ function sendLedState(state) {
 
 function increase()
 {
-    console.log(`Local: ${speed}"}`)
+    console.log(`entered increase(): ${speed}"}`)
     if (speed < 180)
     {
         if (speed == 0)
@@ -191,7 +191,7 @@ function increase()
         {
             document.getElementById("state_off").innerHTML = "Decrease Speed"
         }
-
+        console.log(`exited increase(): ${speed}"}`)
         state()
 
     }
@@ -199,6 +199,7 @@ function increase()
 
 function decrease()
 {
+    console.log(`entered decrease(): ${speed}"}`);
     if (speed > 0)
     {
         if (speed == 50)
@@ -239,6 +240,7 @@ function decrease()
             document.getElementById("state_off").innerHTML = "Fan Off"
         }
 
+        console.log(`exited decrease(): ${speed}"}`);
         state()
     }
 }

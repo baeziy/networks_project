@@ -3,6 +3,11 @@ const socket = new WebSocket('ws://192.168.18.70:3000');
 socket.addEventListener('message', function (event) 
 {
     const data = JSON.parse(event.data);
+    if (localChange) {
+        // If this is a change that was made locally, ignore it.
+        localChange = false;
+        return;
+    }
 
     if (data.fanSpeed !== undefined) 
     {
@@ -77,7 +82,7 @@ var test = 0;
 var speed = 0;
 var prev_speed = 0;
 var currentScale = 1;
-
+var localChange = false;
 function state()
 {
     console.log(`entered state(): ${speed}}`)
@@ -114,6 +119,7 @@ function state()
 function sendFanSpeed(speed) {
     fetch('/state/fan/' + speed)
         .then((response) => {
+            localChange = true;
             return response.text();
         })
         .then((text) => console.log(text))
@@ -149,11 +155,11 @@ function killswitch()
 function sendLedState(state) {
     fetch('/state/led/' + state)
         .then((response) => {
+            localChange = true;
             return response.text();
         })
         .then((text) => console.log(text))
 }
-
 function increase()
 {
     console.log(`entered increase(): ${speed}"}`)

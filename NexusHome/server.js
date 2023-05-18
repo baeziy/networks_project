@@ -67,13 +67,24 @@ app.get('/state/:device/:state', function (req, res) {
     const device = req.params.device;
     const state = req.params.state;
 
-    client.publish(device + '/' + (device === 'led' ? 'state' : 'speed'), state);
-    
+    // Only publish new state if it is different from current state
+    if ((device === 'fan' && state !== fanSpeed) || (device === 'led' && state !== ledState)) {
+        client.publish(device + '/' + (device === 'led' ? 'state' : 'speed'), state);
+    }
+
+    // Update the internal state variables
+    if (device === 'fan') {
+        fanSpeed = state;
+    } else if (device === 'led') {
+        ledState = state;
+    }
+
     // Broadcast the new state to all connected WebSocket clients
     broadcastMessage({fanSpeed, ledState});
 
     res.send('Device ' + device + ' set to ' + state);
 });
+
 
 const server = http.createServer(app);
 server.listen(3000, '0.0.0.0', function () {

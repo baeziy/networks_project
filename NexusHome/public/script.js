@@ -10,6 +10,7 @@ socket.addEventListener('message', function (event)
         fanspeed = data.fanSpeed.toUpperCase();
 
         if (fanspeed === "OFF"){
+            console.log(`in OFF of ws: ${speed}"}`)
             if(speed > 0){
                decrease();
             }

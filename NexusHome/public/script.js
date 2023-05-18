@@ -3,58 +3,51 @@ const socket = new WebSocket('ws://192.168.18.70:3000');
 socket.addEventListener('message', function (event) 
 {
     const data = JSON.parse(event.data);
-    if (localChange) {
-        // If this is a change that was made locally, ignore it.
-        localChange = false;
-        return;
-    }
 
     if (data.fanSpeed !== undefined) 
     {
-        setTimeout(function() {
-            document.getElementById("mode").innerHTML = data.fanSpeed.toUpperCase();
-            fanspeed = data.fanSpeed.toUpperCase();
+        document.getElementById("mode").innerHTML = data.fanSpeed.toUpperCase();
+        fanspeed = data.fanSpeed.toUpperCase();
 
-            if (fanspeed === "OFF"){
-                console.log(`in OFF of ws: ${speed}"}`)
-                if(speed > 0){
-                    decrease();
-                }
+        if (fanspeed === "OFF"){
+            console.log(`in OFF of ws: ${speed}"}`)
+            if(speed > 0){
+               decrease();
             }
-            else if (fanspeed === "LOW"){
-                console.log(`in LOW of ws: ${speed}"}`)
-                if(speed == 0){
-                    increase();
-                }
-                else if(speed > 50){
-                    decrease();
-                }
-                else if(speed < 50){
-                    increase();
-                }
+        }
+        else if (fanspeed === "LOW"){
+            console.log(`in LOW of ws: ${speed}"}`)
+            if(speed == 0){
+                increase();
             }
-            else if (fanspeed === "MEDIUM"){
-                if(speed == 0){
-                    increase();
-                }
-                else if(speed > 120){
-                    decrease();
-                }
-                else if(speed < 120){
-                    increase();
-                }
+            else if(speed > 50){
+                decrease();
             }
-            else if (fanspeed === "HIGH"){
-                console.log(`Changing on other device: ${speed}"}`)
-                if(speed == 0){
-                    increase();
-                }
-                else if(speed < 180){
-                    increase();
-                }
+            else if(speed < 50){
+                increase();
             }
-            console.log('New fan speed:', data.fanSpeed);
-        }, 1000);  // 1000ms delay
+        }
+        else if (fanspeed === "MEDIUM"){
+            if(speed == 0){
+                increase();
+            }
+            else if(speed > 120){
+                decrease();
+            }
+            else if(speed < 120){
+                increase();
+            }
+        }
+        else if (fanspeed === "HIGH"){
+            console.log(`Changing on other device: ${speed}"}`)
+            if(speed == 0){
+                increase();
+            }
+            else if(speed < 180){
+                increase();
+            }
+        }
+        console.log('New fan speed:', data.fanSpeed);
     }
 
     if (data.ledState !== undefined) {
@@ -77,12 +70,11 @@ socket.addEventListener('message', function (event)
     }
 });
 
-
 var test = 0;
 var speed = 0;
 var prev_speed = 0;
 var currentScale = 1;
-var localChange = false;
+
 function state()
 {
     console.log(`entered state(): ${speed}}`)
@@ -119,7 +111,6 @@ function state()
 function sendFanSpeed(speed) {
     fetch('/state/fan/' + speed)
         .then((response) => {
-            localChange = true;
             return response.text();
         })
         .then((text) => console.log(text))
@@ -155,11 +146,11 @@ function killswitch()
 function sendLedState(state) {
     fetch('/state/led/' + state)
         .then((response) => {
-            localChange = true;
             return response.text();
         })
         .then((text) => console.log(text))
 }
+
 function increase()
 {
     console.log(`entered increase(): ${speed}"}`)

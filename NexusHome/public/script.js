@@ -131,8 +131,7 @@ function killswitch()
     document.getElementById("buttonswitch").innerHTML = "OFF"
     document.getElementById("light").className = "dark"
 
-    sendFanSpeed('off');
-    sendLedState('off');
+    state()
 
 }
 

@@ -138,7 +138,7 @@ function killswitch()
 
     console.log(`exited killswitch(): ${speed}}`)
     
-    state();
+    sendFanSpeed('off');
 
 
 }

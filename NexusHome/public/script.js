@@ -9,67 +9,67 @@ socket.addEventListener('message', function (event)
         document.getElementById("mode").innerHTML = data.fanSpeed.toUpperCase();
         fanspeed = data.fanSpeed.toUpperCase();
 
-        if (fanspeed == "OFF")
-        {
-            if (speed > 0)
-            {
-                while (speed != 0) 
-                {
-                    decrease();
-                }
-            }
-        }
+        // if (fanspeed == "OFF")
+        // {
+        //     if (speed > 0)
+        //     {
+        //         while (speed != 0) 
+        //         {
+        //             decrease();
+        //         }
+        //     }
+        // }
 
-        else if (fanspeed == "LOW")
-        {
-            if (speed > 50)
-            {
-                while (speed != 50) 
-                {
-                    decrease();
-                }
-            }
+        // else if (fanspeed == "LOW")
+        // {
+        //     if (speed > 50)
+        //     {
+        //         while (speed != 50) 
+        //         {
+        //             decrease();
+        //         }
+        //     }
 
-            else if (speed < 50)
-            {
-                while (speed != 50);
-                {
-                    increase();
-                }
-            }
-        }
+        //     else if (speed < 50)
+        //     {
+        //         while (speed != 50);
+        //         {
+        //             increase();
+        //         }
+        //     }
+        // }
         
 
-        else if (fanspeed == "MEDIUM")
-        {
-            if (speed > 120)
-            {
-                while (speed != 120) 
-                {
-                    decrease();
-                }
+        // else if (fanspeed == "MEDIUM")
+        // {
+        //     if (speed > 120)
+        //     {
+        //         while (speed != 120) 
+        //         {
+        //             decrease();
+        //         }
                 
-            }
+        //     }
 
-            else if (speed < 120)
-            {
-                while (speed != 120) 
-                {
-                    increase();
-                }
-            }
-        }
+        //     else if (speed < 120)
+        //     {
+        //         while (speed != 120) 
+        //         {
+        //             increase();
+        //         }
+        //     }
+        // }
 
-        else if (fanspeed == "HIGH")
-        {
-            if (speed < 180)
-            {
-                while (speed != 180) 
-                {
-                    increase();
-                }
-            }
-        }
+        // else if (fanspeed == "HIGH")
+        // {
+        //     if (speed < 180)
+        //     {
+        //         while (speed != 180) 
+        //         {
+        //             increase();
+        //         }
+        //     }
+        // }
 
         console.log('New fan speed:', data.fanSpeed);
     }

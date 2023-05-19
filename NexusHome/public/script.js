@@ -1,4 +1,4 @@
-const socket = new WebSocket('ws://192.168.18.70:3000');
+const socket = new WebSocket('ws://172.30.68.118:3000');
 
 socket.addEventListener('message', function (event) 
 {

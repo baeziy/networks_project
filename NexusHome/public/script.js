@@ -28,6 +28,7 @@ socket.addEventListener('message', function (event)
             }
         }
         else if (fanspeed === "MEDIUM"){
+            console.log(`in MEDIUM of ws: ${speed}"}`)
             if(speed == 0){
                 increase();
             }

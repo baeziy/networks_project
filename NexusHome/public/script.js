@@ -123,7 +123,10 @@ function killswitch()
     {
         while (speed != 0) 
         {
-            decrease();
+            speed = speed - 10;
+            addClass();
+            changeActive();
+            currentScale = currentScale - 1;
         }
         document.getElementById("state_off").innerHTML = "Fan Off"
         document.getElementById("mode").innerHTML = "OFF"

@@ -42,10 +42,10 @@ function handleFanSpeed(speed) {
             dutyCycle = 0;
             break;
         case 'low':
-            dutyCycle = 90; 
+            dutyCycle = 120; 
             break;
         case 'medium':
-            dutyCycle = 128;
+            dutyCycle = 160;
             break;
         case 'high':
             dutyCycle = 255; 

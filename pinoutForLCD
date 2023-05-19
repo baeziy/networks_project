@@ -1,0 +1,13 @@
+VSS to any GND pin on the Pi.
+VDD to any 5V pin on the Pi.
+V0 to any GND pin on the Pi for maximum contrast. If you have a resistor around 1K-2K Ohms, you can connect V0 to GND through this resistor to reduce the contrast.
+RS to GPIO pin on the Pi (for example, GPIO 26).
+RW to any GND pin on the Pi. (We're only writing to the display, not reading from it.)
+E to another GPIO pin on the Pi (for example, GPIO 19).
+DB0-DB3 are not connected.
+DB4 to another GPIO pin on the Pi (for example, GPIO 13).
+DB5 to another GPIO pin on the Pi (for example, GPIO 6).
+DB6 to another GPIO pin on the Pi (for example, GPIO 5).
+DB7 to another GPIO pin on the Pi (for example, GPIO 11).
+LEDA to any 5V pin on the Pi through a 220-ohm resistor. This powers the backlight.
+LEDK to any GND pin on the Pi.

@@ -1,19 +1,16 @@
 const socket = new WebSocket('ws://172.30.68.118:3000');
 
-socket.addEventListener('message', function (event) 
-{
+socket.addEventListener('message', function (event) {
     const data = JSON.parse(event.data);
 
-    if (data.fanSpeed !== undefined) 
-    {
+    if (data.fanSpeed !== undefined) {
         document.getElementById("mode").innerHTML = data.fanSpeed.toUpperCase();
         fanspeed = data.fanSpeed.toUpperCase();
 
-        if (fanspeed === "OFF"){
+        if (fanspeed === "OFF") {
             console.log(`in OFF of ws: ${speed}"}`)
-            if(speed > 0){
-                while (speed != 0) 
-                {
+            if (speed > 0) {
+                while (speed != 0) {
                     speed = speed - 10;
                     addClass();
                     changeActive();
@@ -21,12 +18,22 @@ socket.addEventListener('message', function (event)
                 }
             }
         }
-        else if (fanspeed === "LOW"){
+        else if (fanspeed === "LOW") 
+        {
             console.log(`in LOW of ws: ${speed}"}`)
-            if(speed == 0){
-                increase();
+            if (speed < 50) 
+            {
+                while (speed != 50) 
+                {
+                    speed = speed + 10;
+                    addClass();
+                    currentScale = currentScale + 1;
+                    changeActive();
+                }
             }
-            else if(speed > 50){
+
+            else if (speed > 50) 
+            {
                 while (speed != 50) 
                 {
                     speed = speed - 10;
@@ -35,35 +42,40 @@ socket.addEventListener('message', function (event)
                     currentScale = currentScale - 1;
                 }
             }
-            else if(speed < 50){
-                increase();
-            }
         }
-        else if (fanspeed === "MEDIUM"){
+
+        else if (fanspeed === "MEDIUM") 
+        {
             console.log(`in MEDIUM of ws: ${speed}"}`)
-            if(speed == 0){
-                increase();
+            if (speed < 120) {
+                while (speed != 120) {
+                    speed = speed + 10;
+                    addClass();
+                    currentScale = currentScale + 1;
+                    changeActive();
+                }
             }
-            else if(speed > 120){
-                while (speed != 120) 
-                {
+            else if (speed > 120) {
+                while (speed != 120) {
                     speed = speed - 10;
                     addClass();
                     changeActive();
                     currentScale = currentScale - 1;
                 }
             }
-            else if(speed < 120){
-                increase();
-            }
         }
-        else if (fanspeed === "HIGH"){
+
+        else if (fanspeed === "HIGH") {
             console.log(`Changing on other device: ${speed}"}`)
-            if(speed == 0){
-                increase();
-            }
-            else if(speed < 180){
-                increase();
+
+            if (speed < 180) {
+                while (speed != 180) 
+                {
+                    speed = speed + 10;
+                    addClass();
+                    currentScale = currentScale + 1;
+                    changeActive();
+                }
             }
         }
         console.log('New fan speed:', data.fanSpeed);
@@ -73,14 +85,12 @@ socket.addEventListener('message', function (event)
         const ledState = data.ledState === 'on' ? 'ON' : 'OFF';
         document.getElementById("buttonswitch").innerHTML = ledState;
 
-        if(data.ledState === 'on')
-        {
+        if (data.ledState === 'on') {
             document.getElementById("light").className = "light";
             document.getElementById("buttonswitch").className = "green"
         }
 
-        else if(data.ledState === 'off')
-        {
+        else if (data.ledState === 'off') {
             document.getElementById("light").className = "dark";
             document.getElementById("buttonswitch").className = "red"
         }
@@ -94,31 +104,26 @@ var speed = 0;
 var prev_speed = 0;
 var currentScale = 1;
 
-function state()
-{
+function state() {
     console.log(`entered state(): ${speed}}`)
     let state = 'off'
 
-    if (speed > 0 && speed <= 50) 
-    {
+    if (speed > 0 && speed <= 50) {
         document.getElementById("mode").innerHTML = "LOW"
         state = 'low';
     }
 
-    else if (speed > 50 && speed <= 120) 
-    {
+    else if (speed > 50 && speed <= 120) {
         document.getElementById("mode").innerHTML = "MEDIUM"
         state = 'medium';
     }
 
-    else if (speed > 120) 
-    {
+    else if (speed > 120) {
         document.getElementById("mode").innerHTML = "HIGH"
         state = 'high';
     }
 
-    else
-    {
+    else {
         document.getElementById("mode").innerHTML = "OFF"
     }
 
@@ -133,15 +138,12 @@ function sendFanSpeed(speed) {
             return response.text();
         })
         .then((text) => console.log(text))
-    }
+}
 
-function killswitch()
-{
+function killswitch() {
     console.log(`entered killswitch(): ${speed}}`)
-    if (speed > 0)
-    {
-        while (speed != 0) 
-        {
+    if (speed > 0) {
+        while (speed != 0) {
             speed = speed - 10;
             addClass();
             changeActive();
@@ -156,7 +158,7 @@ function killswitch()
     document.getElementById("light").className = "dark"
 
     console.log(`exited killswitch(): ${speed}}`)
-    
+
     sendFanSpeed('off');
     sendLedState('off'); //produces error (flickering in all connected clients)
 
@@ -170,15 +172,11 @@ function sendLedState(state) {
         .then((text) => console.log(text))
 }
 
-function increase()
-{
+function increase() {
     console.log(`entered increase(): ${speed}"}`)
-    if (speed < 180)
-    {
-        if (speed == 0)
-        {
-            while (speed != 50) 
-            {
+    if (speed < 180) {
+        if (speed == 0) {
+            while (speed != 50) {
                 speed = speed + 10;
                 addClass();
                 currentScale = currentScale + 1;
@@ -186,10 +184,8 @@ function increase()
             }
         }
 
-        else if (speed == 50)
-        {
-            while (speed != 120) 
-            {
+        else if (speed == 50) {
+            while (speed != 120) {
                 speed = speed + 10;
                 addClass();
                 currentScale = currentScale + 1;
@@ -197,10 +193,8 @@ function increase()
             }
         }
 
-        else if (speed == 120)
-        {
-            while (speed != 180) 
-            {
+        else if (speed == 120) {
+            while (speed != 180) {
                 speed = speed + 10;
                 addClass();
                 currentScale = currentScale + 1;
@@ -208,8 +202,7 @@ function increase()
             }
         }
 
-        if (speed > 0)
-        {
+        if (speed > 0) {
             document.getElementById("state_off").innerHTML = "Decrease Speed"
         }
         console.log(`exited increase(): ${speed}"}`)
@@ -218,15 +211,11 @@ function increase()
     }
 }
 
-function decrease()
-{
+function decrease() {
     console.log(`entered decrease(): ${speed}"}`);
-    if (speed > 0)
-    {
-        if (speed == 50)
-        {
-            while (speed != 0) 
-            {
+    if (speed > 0) {
+        if (speed == 50) {
+            while (speed != 0) {
                 speed = speed - 10;
                 addClass();
                 changeActive();
@@ -234,10 +223,8 @@ function decrease()
             }
         }
 
-        else if (speed == 120)
-        {
-            while (speed != 50) 
-            {
+        else if (speed == 120) {
+            while (speed != 50) {
                 speed = speed - 10;
                 addClass();
                 changeActive();
@@ -245,19 +232,16 @@ function decrease()
             }
         }
 
-        else if (speed == 180)
-        {
-            while (speed != 120) 
-            {
+        else if (speed == 180) {
+            while (speed != 120) {
                 speed = speed - 10;
                 addClass();
                 changeActive();
                 currentScale = currentScale - 1;
             }
         }
-        
-        if (speed == 0)
-        {
+
+        if (speed == 0) {
             document.getElementById("state_off").innerHTML = "Fan Off"
         }
 
@@ -266,14 +250,12 @@ function decrease()
     }
 }
 
-function addClass()
-{
+function addClass() {
     var newClass = "speed-" + speed;
     var prevClass = "speed-" + prev_speed;
     var el = document.getElementsByClassName("needle_wrapper")[0];
 
-    if (el.classList.contains(prevClass))
-    {
+    if (el.classList.contains(prevClass)) {
         el.classList.remove(prevClass);
         el.classList.add(newClass);
     }
@@ -281,27 +263,23 @@ function addClass()
     prev_speed = speed;
 }
 
-function changeActive()
-{
+function changeActive() {
     var tempClass = "speedscale-" + currentScale;
     var el = document.getElementsByClassName(tempClass)[0];
     el.classList.toggle("active");
 }
 
-function _switch()
-{
+function _switch() {
     var state = document.getElementById("buttonswitch").innerHTML;
-    
-    if (state == "OFF")
-    {
+
+    if (state == "OFF") {
         document.getElementById("buttonswitch").className = "green"
         document.getElementById("buttonswitch").innerHTML = "ON"
         document.getElementById("light").className = "light"
         sendLedState('on');
     }
 
-    else if (state == "ON")
-    {
+    else if (state == "ON") {
         document.getElementById("buttonswitch").className = "red"
         document.getElementById("buttonswitch").innerHTML = "OFF"
         document.getElementById("light").className = "dark"

@@ -121,26 +121,23 @@ function killswitch()
     console.log(`entered killswitch(): ${speed}}`)
     if (speed > 0)
     {
-        while (speed !== 0) 
+        while (speed != 0) 
         {
-            speed = speed - 10;
-            addClass();
-            changeActive();
-            currentScale = currentScale - 1;
+            decrease();
         }
         document.getElementById("state_off").innerHTML = "Fan Off"
         document.getElementById("mode").innerHTML = "OFF"
     }
 
+    sendFanSpeed('off');
+    // sendLedState('off'); //produces error (flickering in all connected clients)
+
     document.getElementById("buttonswitch").className = "red"
     document.getElementById("buttonswitch").innerHTML = "OFF"
     document.getElementById("light").className = "dark"
+    sendLedState('off');
 
-    console.log(`exited killswitch(): ${speed}}`)
-    
-    sendFanSpeed('off');
-   // sendLedState('off'); //produces error (flickering in all connected clients)
-
+    console.log(`exited killswitch(): ${speed}}`)   
 }
 
 function sendLedState(state) {

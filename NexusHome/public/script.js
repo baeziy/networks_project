@@ -129,15 +129,15 @@ function killswitch()
         document.getElementById("mode").innerHTML = "OFF"
     }
 
-    sendFanSpeed('off');
-    // sendLedState('off'); //produces error (flickering in all connected clients)
-
     document.getElementById("buttonswitch").className = "red"
     document.getElementById("buttonswitch").innerHTML = "OFF"
     document.getElementById("light").className = "dark"
-    sendLedState('off');
 
-    console.log(`exited killswitch(): ${speed}}`)   
+    console.log(`exited killswitch(): ${speed}}`)
+    
+    sendFanSpeed('off');
+   // sendLedState('off'); //produces error (flickering in all connected clients)
+
 }
 
 function sendLedState(state) {

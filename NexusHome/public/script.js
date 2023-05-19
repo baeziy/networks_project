@@ -158,7 +158,7 @@ function killswitch()
     console.log(`exited killswitch(): ${speed}}`)
     
     sendFanSpeed('off');
-   // sendLedState('off'); //produces error (flickering in all connected clients)
+    sendLedState('off'); //produces error (flickering in all connected clients)
 
 }
 

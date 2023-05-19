@@ -12,7 +12,13 @@ socket.addEventListener('message', function (event)
         if (fanspeed === "OFF"){
             console.log(`in OFF of ws: ${speed}"}`)
             if(speed > 0){
-               decrease();
+                while (speed != 0) 
+                {
+                    speed = speed - 10;
+                    addClass();
+                    changeActive();
+                    currentScale = currentScale - 1;
+                }
             }
         }
         else if (fanspeed === "LOW"){
@@ -21,7 +27,13 @@ socket.addEventListener('message', function (event)
                 increase();
             }
             else if(speed > 50){
-                decrease();
+                while (speed != 50) 
+                {
+                    speed = speed - 10;
+                    addClass();
+                    changeActive();
+                    currentScale = currentScale - 1;
+                }
             }
             else if(speed < 50){
                 increase();
@@ -33,7 +45,13 @@ socket.addEventListener('message', function (event)
                 increase();
             }
             else if(speed > 120){
-                decrease();
+                while (speed != 120) 
+                {
+                    speed = speed - 10;
+                    addClass();
+                    changeActive();
+                    currentScale = currentScale - 1;
+                }
             }
             else if(speed < 120){
                 increase();

@@ -16,6 +16,7 @@ socket.addEventListener('message', function (event) {
                     changeActive();
                     currentScale = currentScale - 1;
                 }
+                document.getElementById("state_off").innerHTML = "Fan Off";
             }
         }
         else if (fanspeed === "LOW") 
@@ -30,6 +31,8 @@ socket.addEventListener('message', function (event) {
                     currentScale = currentScale + 1;
                     changeActive();
                 }
+
+                document.getElementById("state_off").innerHTML = "Decrease Speed";
             }
 
             else if (speed > 50) 
@@ -54,6 +57,7 @@ socket.addEventListener('message', function (event) {
                     currentScale = currentScale + 1;
                     changeActive();
                 }
+                document.getElementById("state_off").innerHTML = "Decrease Speed";
             }
             else if (speed > 120) {
                 while (speed != 120) {
@@ -76,6 +80,7 @@ socket.addEventListener('message', function (event) {
                     currentScale = currentScale + 1;
                     changeActive();
                 }
+                document.getElementById("state_off").innerHTML = "Decrease Speed";
             }
         }
         console.log('New fan speed:', data.fanSpeed);

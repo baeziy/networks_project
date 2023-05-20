@@ -149,8 +149,9 @@ function writeToLCD(text, col, row) {
   }
   
   function updateLCD() {
-    lcd.clear(function () {
-      writeToLCD(`Temp: ${temperature}°C`, 0, 0);
-      writeToLCD(`Hum: ${humidity}%`, 0, 1);
+    lcd.clear(function() {
+      writeToLCD(`Temp: ${temperature}C   `, 0, 0); // Add extra spaces after temperature value
+      writeToLCD(`Hum: ${humidity}%     `, 0, 1); // Add extra spaces after humidity value
     });
   }
+  

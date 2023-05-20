@@ -102,6 +102,15 @@ socket.addEventListener('message', function (event) {
 
         console.log('New LED state:', data.ledState);
     }
+
+    if (data.temperature !== undefined) {
+        document.getElementById("temperature").innerHTML = data.temperature;
+        console.log('New temperature:', data.temperature);
+    }
+    if (data.humidity !== undefined) {
+        document.getElementById("humidity").innerHTML = data.humidity;
+        console.log('New humidity:', data.humidity);
+    }
 });
 
 var test = 0;

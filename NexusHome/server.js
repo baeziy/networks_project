@@ -154,13 +154,12 @@ function writeToLCD(text, col, row) {
         let formattedTemperature = Number.isFinite(temperature) ? temperature.toFixed(2) : 'N/A';
         let formattedHumidity = Number.isFinite(humidity) ? humidity.toFixed(2) : 'N/A';
         
-        // Check if formatted values fit within the LCD column limit
-        if (`Temp: ${formattedTemperature} C  `.length > lcd.cols || `Hum: ${formattedHumidity} %  `.length > lcd.cols) {
-            console.log("Warning: Display text length exceeds LCD column limit.");
-        }
-        
-        // Write formatted values to the LCD
-        writeToLCD(`Temp: ${formattedTemperature} C  `, 0, 0); // Display temperature on the first row
-        writeToLCD(`Hum: ${formattedHumidity} %  `, 0, 1); // Display humidity on the second row
+        // Write formatted temperature to the LCD
+        writeToLCD(`Temp: ${formattedTemperature} C  `, 0, 0); 
+
+        // Delay the writing of humidity to allow the LCD to process
+        setTimeout(function() {
+            writeToLCD(`Hum: ${formattedHumidity} %  `, 0, 1); // Display humidity on the second row
+        }, 1000); // delay of 1 second (1000 milliseconds)
     });
 }

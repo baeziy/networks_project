@@ -144,15 +144,13 @@ setInterval(function() {
     broadcastMessage({temperature, humidity});
 }, 1000); // Broadcast sensor readings every 1 second
 
-function writeToLCD(text, col, row) {
-    lcd.setCursor(col, row);
-    lcd.print(text);
-  }
   
   function updateLCD() {
     lcd.clear(function() {
-            writeToLCD(`T: ${temperature}C`, 0, 0);
-            writeToLCD(`H: ${humidity}%`, 0, 1);
+        lcd.setCursor(0, 0);
+        lcd.print(`T: ${temperature} C`);
+        lcd.setCursor(0, 1);
+        lcd.print(`H: ${humidity} %`);
 
     });
 }

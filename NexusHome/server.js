@@ -5,7 +5,7 @@ const mqtt = require('mqtt');
 const WebSocket = require('ws');
 const Gpio = require('pigpio').Gpio;
 
-const client = mqtt.connect('mqtt://localhost:1883');
+const client = mqtt.connect('mqtt://localhost');
 if(client){
     console.log("MQTT connected");
 }

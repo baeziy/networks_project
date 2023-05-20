@@ -150,8 +150,8 @@ function writeToLCD(text, col, row) {
   
   function updateLCD() {
     lcd.clear(function() {
-      writeToLCD(`Temp: ${temperature} C   `, 0, 0); // Display temperature on the first row
-      writeToLCD(`Hum: ${humidity} %     `, 0, 1); // Display humidity on the second row
+      writeToLCD(`Temp: ${temperature} C  `, 0, 0); // Display temperature on the first row
+      writeToLCD(`Hum: ${humidity} %  `, 0, 1); // Display humidity on the second row
     });
   }
   

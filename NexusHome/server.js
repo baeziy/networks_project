@@ -150,8 +150,17 @@ function writeToLCD(text, col, row) {
   
   function updateLCD() {
     lcd.clear(function() {
-      writeToLCD(`Temp: ${temperature} C  `, 0, 0); // Display temperature on the first row
-      writeToLCD(`Hum: ${humidity} %  `, 0, 1); // Display humidity on the second row
+        // Ensure temperature and humidity are finite numbers and limit decimal points
+        let formattedTemperature = Number.isFinite(temperature) ? temperature.toFixed(2) : 'N/A';
+        let formattedHumidity = Number.isFinite(humidity) ? humidity.toFixed(2) : 'N/A';
+        
+        // Check if formatted values fit within the LCD column limit
+        if (`Temp: ${formattedTemperature} C  `.length > lcd.cols || `Hum: ${formattedHumidity} %  `.length > lcd.cols) {
+            console.log("Warning: Display text length exceeds LCD column limit.");
+        }
+        
+        // Write formatted values to the LCD
+        writeToLCD(`Temp: ${formattedTemperature} C  `, 0, 0); // Display temperature on the first row
+        writeToLCD(`Hum: ${formattedHumidity} %  `, 0, 1); // Display humidity on the second row
     });
-  }
-  
+}

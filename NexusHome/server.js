@@ -39,6 +39,7 @@ client.on('connect', function () {
 
 client.on('message', function (topic, message) {
     let msgString = message.toString();
+    if(topic !== 'temperature' && topic !== 'humidity')
     console.log(`Received MQTT message on topic "${topic}": ${msgString}`);
     switch (topic) {
         case 'fan/speed':
@@ -149,7 +150,7 @@ function writeToLCD(text, col, row) {
   
   function updateLCD() {
     lcd.clear(function () {
-      writeToLCD(`Temp: ${temperature} C`, 0, 0);
-      writeToLCD(`Hum: ${humidity} %`, 0, 1);
+      writeToLCD(`Temp: ${temperature}°C`, 0, 0);
+      writeToLCD(`Hum: ${humidity}%`, 0, 1);
     });
   }

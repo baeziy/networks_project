@@ -21,6 +21,7 @@ fan.pwmWrite(0);
 led.digitalWrite(0);
 
 client.on('connect', function () {
+    console.log('Connected to MQTT broker');
     client.subscribe('fan/speed');
     client.subscribe('led/state');
     client.subscribe('temperature');  // subscribe to temperature topic

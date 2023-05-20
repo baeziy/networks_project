@@ -8,6 +8,8 @@ const Gpio = require('pigpio').Gpio;
 const client = mqtt.connect('mqtt://localhost');
 let fanSpeed = 'off';
 let ledState = 'off';
+let temperature = '';
+let humidity = '';
 let connectedClients = [];
 
 const fan = new Gpio(18, {mode: Gpio.OUTPUT}); 
@@ -18,6 +20,8 @@ led.digitalWrite(0);
 client.on('connect', function () {
     client.subscribe('fan/speed');
     client.subscribe('led/state');
+    client.subscribe('temperature');  // subscribe to temperature topic
+    client.subscribe('humidity');     // subscribe to humidity topic
 });
 
 client.on('message', function (topic, message) {
@@ -32,6 +36,13 @@ client.on('message', function (topic, message) {
             ledState = msgString;
             handleLedState(ledState);
             break;
+        case 'temperature':
+            temperature = msgString;
+            break;
+        case 'humidity':
+            humidity = msgString;
+            break;
+
     }
 });
 
@@ -79,8 +90,8 @@ app.get('/state/:device/:state', function (req, res) {
         ledState = state;
     }
 
-    // Broadcast the new state to all connected WebSocket clients
-    broadcastMessage({fanSpeed, ledState});
+    // Broadcast the new state to all connected WebSocket clients   
+    broadcastMessage({fanSpeed, ledState, temperature, humidity}); // updated to include temperature and humidity
 
     res.send('Device ' + device + ' set to ' + state);
 });

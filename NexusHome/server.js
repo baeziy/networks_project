@@ -150,16 +150,13 @@ function writeToLCD(text, col, row) {
   
   function updateLCD() {
     lcd.clear(function() {
-        // Ensure temperature and humidity are finite numbers and limit decimal points
-        let formattedTemperature = Number.isFinite(temperature) ? temperature.toFixed(2) : 'N/A';
-        let formattedHumidity = Number.isFinite(humidity) ? humidity.toFixed(2) : 'N/A';
         
         // Write formatted temperature to the LCD
-        writeToLCD(`Temp: ${formattedTemperature} C  `, 0, 0); 
+        writeToLCD(`Temp: ${temperature} C  `, 0, 0); 
 
         // Delay the writing of humidity to allow the LCD to process
         setTimeout(function() {
-            writeToLCD(`Hum: ${formattedHumidity} %  `, 0, 1); // Display humidity on the second row
+            writeToLCD(`Hum: ${humidity} %  `, 0, 1); // Display humidity on the second row
         }, 1000); // delay of 1 second (1000 milliseconds)
     });
 }

@@ -151,16 +151,6 @@ function writeToLCD(text, col, row) {
   
   function updateLCD() {
     lcd.clear(function() {
-        writeToLCD(`Temp: ${temperature} C  `, 0, 0);
-        setTimeout(function() {
-            writeToLCD('-----------', 0, 1);
-            setTimeout(function() {
-                writeToLCD('----------', 0, 2);
-                setTimeout(function() {
-                    writeToLCD(`Hum: ${humidity}%  `, 0, 3);
-                }, 200);
-            }, 200);
-        }, 200);
+        writeToLCD(`Temp: ${temperature} C  Hum: ${humidity} %`, 0, 0);
     });
 }
-

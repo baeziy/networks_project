@@ -153,8 +153,8 @@ function writeToLCD(text, col, row) {
         
         
         writeToLCD(`Temp: ${temperature} C  `, 0, 0); 
-        writeToLCD('----------------', 0, 1);
-        writeToLCD('----------------', 0, 2);
+        writeToLCD('-----------', 0, 1);
+        writeToLCD('-----------', 0, 2);
             writeToLCD(`Hum: ${humidity} %  `, 0, 3); 
     });
 }

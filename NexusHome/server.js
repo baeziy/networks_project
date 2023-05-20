@@ -148,7 +148,7 @@ setInterval(function() {
   function updateLCD() {
     lcd.clear(function() {
         lcd.setCursor(0, 0);
-        lcd.print(`T:${temperature} C     H:${humidity} %`);
+        lcd.print(`Tem:${temperature} C     Hum:${humidity} %`);
 
     });
 }

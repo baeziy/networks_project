@@ -152,7 +152,10 @@ function writeToLCD(text, col, row) {
   function updateLCD() {
     lcd.clear(function() {
         setTimeout(function() {
-            writeToLCD(`Temp: ${temperature} C  Hum: ${humidity} %`, 0, 0);
+            writeToLCD(`Temp: ${temperature} C`, 0, 0);
+            writeToLCD(`Hum: ${humidity} %`, 0, 0);
+            writeToLCD(`Fan: ${fanSpeed}`, 0, 0);
+            writeToLCD(`LED: ${ledState}`, 0, 0);
         }, 200);  // delay of 
     });
 }

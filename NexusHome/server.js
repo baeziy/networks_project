@@ -5,7 +5,15 @@ const mqtt = require('mqtt');
 const WebSocket = require('ws');
 const Gpio = require('pigpio').Gpio;
 const Lcd = require('lcd');
-let lcd = null
+const lcd = new Lcd({
+    rs: 26,
+    e: 19,
+    data: [13, 6, 5, 11],
+    cols: 16,
+    rows: 4
+});
+
+  
 
 const client = mqtt.connect('mqtt://localhost:1884');
 if(client){
@@ -45,12 +53,10 @@ client.on('message', function (topic, message) {
             break;
         case 'temperature':
             temperature = msgString;
-            lcd = null
             updateLCD();
             break;
         case 'humidity':
             humidity = msgString;
-            lcd = null
             updateLCD();
             break;
 
@@ -144,22 +150,17 @@ function writeToLCD(text, col, row) {
   }
   
   function updateLCD() {
-    // Reinitialize the LCD
-    lcd = new Lcd({
-        rs: 26,
-        e: 19,
-        data: [13, 6, 5, 11],
-        cols: 16,
-        rows: 4
-    });
-  
-    lcd.on('ready', function () {
-        lcd.clear(function() {
-            writeToLCD(`Temp: ${temperature} C  `, 0, 0); 
+    lcd.clear(function() {
+        writeToLCD(`Temp: ${temperature} C  `, 0, 0);
+        setTimeout(function() {
             writeToLCD('-----------', 0, 1);
-            writeToLCD('-----------', 0, 2);
-            writeToLCD(`Hum: ${humidity} %  `, 0, 3); 
-        });
+            setTimeout(function() {
+                writeToLCD('----------', 0, 2);
+                setTimeout(function() {
+                    writeToLCD(`Hum: ${humidity}%  `, 0, 3);
+                }, 200);
+            }, 200);
+        }, 200);
     });
 }
 

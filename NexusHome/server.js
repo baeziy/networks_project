@@ -10,7 +10,7 @@ const lcd = new Lcd({
     e: 19,
     data: [13, 6, 5, 11],
     cols: 16,
-    rows: 2
+    rows: 4
 });
 
   

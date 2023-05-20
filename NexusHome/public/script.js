@@ -119,10 +119,6 @@ var test = 0;
 var speed = 0;
 var prev_speed = 0;
 var currentScale = 1;
-let fanspeed = 'off';
-let ledState = 'off';
-let temperature = '';
-let humidity = '';
 function state() {
     console.log(`entered state(): ${speed}}`)
     let state = 'off'

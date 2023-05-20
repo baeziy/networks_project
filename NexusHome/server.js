@@ -6,6 +6,9 @@ const WebSocket = require('ws');
 const Gpio = require('pigpio').Gpio;
 
 const client = mqtt.connect('mqtt://localhost');
+if(cleint){
+    console.log("MQTT connected");
+}
 let fanSpeed = 'off';
 let ledState = 'off';
 let temperature = '';

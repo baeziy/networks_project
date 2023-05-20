@@ -12,6 +12,7 @@ const char* password = "Allahisgreat1";
 
 // Replace with your MQTT broker IP address
 const char* mqtt_server = "192.168.18.70";
+const int mqtt_port = 1884;
 
 DHT dht(DHTPIN, DHTTYPE);
 
@@ -58,7 +59,7 @@ void reconnect() {
 void setup() {
   Serial.begin(115200);
   setup_wifi();
-  client.setServer(mqtt_server, 1883);
+  client.setServer(mqtt_server, mqtt_port);
   dht.begin();
 }
 
@@ -83,9 +84,15 @@ void loop() {
 
   char tempChar[8];
   char humChar[8];
-  
+
   dtostrf(t, 6, 2, tempChar);  //convert float to char[]
   dtostrf(h, 6, 2, humChar);
+
+  // Print the temperature and humidity values to the serial monitor
+  Serial.print("Temperature: ");
+  Serial.println(tempChar);
+  Serial.print("Humidity: ");
+  Serial.println(humChar);
 
   client.publish("temperature", tempChar);  // publish temperature to MQTT broker
   client.publish("humidity", humChar);      // publish humidity to MQTT broker

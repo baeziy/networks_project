@@ -127,3 +127,6 @@ function broadcastMessage(message) {
         client.send(JSON.stringify(message));
     });
 }
+setInterval(function() {
+    broadcastMessage({temperature, humidity});
+}, 1000); // Broadcast sensor readings every 1 second

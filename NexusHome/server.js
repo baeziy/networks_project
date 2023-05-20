@@ -4,6 +4,15 @@ const http = require('http');
 const mqtt = require('mqtt');
 const WebSocket = require('ws');
 const Gpio = require('pigpio').Gpio;
+const Lcd = require('lcd');
+const lcd = new Lcd({
+    rs: 26,
+    e: 19,
+    data: [13, 6, 5, 11],
+    cols: 16,
+    rows: 2
+  });
+  
 
 const client = mqtt.connect('mqtt://localhost:1884');
 if(client){
@@ -42,9 +51,11 @@ client.on('message', function (topic, message) {
             break;
         case 'temperature':
             temperature = msgString;
+            updateLCD();
             break;
         case 'humidity':
             humidity = msgString;
+            updateLCD();
             break;
 
     }
@@ -130,3 +141,15 @@ function broadcastMessage(message) {
 setInterval(function() {
     broadcastMessage({temperature, humidity});
 }, 1000); // Broadcast sensor readings every 1 second
+
+function writeToLCD(text, col, row) {
+    lcd.setCursor(col, row);
+    lcd.print(text);
+  }
+  
+  function updateLCD() {
+    lcd.clear(function () {
+      writeToLCD(`Temp: ${temperature} C`, 0, 0);
+      writeToLCD(`Hum: ${humidity} %`, 0, 1);
+    });
+  }

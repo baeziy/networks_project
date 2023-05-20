@@ -93,11 +93,13 @@ socket.addEventListener('message', function (event) {
         if (data.ledState === 'on') {
             document.getElementById("light").className = "light";
             document.getElementById("buttonswitch").className = "green"
+            document.getElementById("title").className = "text white"
         }
 
         else if (data.ledState === 'off') {
             document.getElementById("light").className = "dark";
             document.getElementById("buttonswitch").className = "red"
+            document.getElementById("title").className = "text black"
         }
 
         console.log('New LED state:', data.ledState);
@@ -290,6 +292,7 @@ function _switch() {
         document.getElementById("buttonswitch").className = "green"
         document.getElementById("buttonswitch").innerHTML = "ON"
         document.getElementById("light").className = "light"
+        document.getElementById("title").className = "text black"
         sendLedState('on');
     }
 
@@ -297,6 +300,7 @@ function _switch() {
         document.getElementById("buttonswitch").className = "red"
         document.getElementById("buttonswitch").innerHTML = "OFF"
         document.getElementById("light").className = "dark"
+        document.getElementById("title").className = "text white"
         sendLedState('off');
     }
 

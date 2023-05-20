@@ -5,16 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <script src = "script.js" defer></script>
+    <script src = "javascript.js" defer></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Righteous">
     <title>Project</title>
+    
 </head>
 
 <body id="light">
-    
-    <div class="boundary"></div>
+
+    <div class="boundary">
+        <div class="title">
+            <span class="text white" id="title">NexusHome</span>
+        </div>
+    </div>
 
     <div class="fanspeed">
-        
+
         <div class="mode"><p id="mode">OFF</p></div>
         <div class="caption">Fan Speed</div>        
         <div class="midpoint"></div>
@@ -52,16 +58,16 @@
         <button class="green" id="state_on" onclick="increase()">Increase Speed</button>
         <button class="red" id="state_off" onclick="decrease()">Fan Off</button>
         <button class="blue" id="kill" onclick="killswitch()">Kill Switch</button>
+        <div class="info">
+            <p>Temperature:<p id="temperature" style="display: inline;">NULL</p></p>
+            <hr>
+            <p>Humidity:<p id="humidity">NULL</p></p>
+        </div>
     </div>
 
     <div class="switch">
-        <button class="red special" id="buttonswitch" onclick="_switch()">OFF</button>
+        <button class="red special" id="switch" onclick="_switch()">OFF</button>
     </div>
-    <div class="tempNhum">
-        Temperature:
-        <p id="temperature">NULL</p>
-        Humidity:
-        <p id="humidity">NULL</p>
-    </div>
+
 </body>
 </html>

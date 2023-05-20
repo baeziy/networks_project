@@ -11,7 +11,8 @@ const lcd = new Lcd({
     data: [13, 6, 5, 11],
     cols: 16,
     rows: 2
-  });
+});
+
   
 
 const client = mqtt.connect('mqtt://localhost:1884');

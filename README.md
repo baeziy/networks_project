@@ -44,6 +44,21 @@ When a GPIO pin on the Raspberry Pi sends a PWM signal to the gate of the MOSFET
 
 This configuration gives the NexusHome Interface the capability to vary the fan's speed in real-time, responding to user commands or environmental changes.
 
+### Languages Utilized
+In the development of the NexusHome Interface, several programming languages were employed, each bringing unique capabilities to the project.
+
+1. Node.js: The primary language used for developing the server application. Node.js, a runtime environment, allows JavaScript to be executed server-side. Chosen for its event-driven, non-blocking I/O model, Node.js is ideal for data-intensive real-time applications running across distributed devices.
+
+2. JavaScript: The backbone of modern web development, JavaScript was extensively utilized on both server and client sides. On the server side, JavaScript powered the Express.js framework and managed MQTT and WebSocket connections. On the client side, JavaScript drove the dynamic web interface, enabling user interaction and real-time updates.
+
+3. Python: Used for initial device testing due to its simplicity and robust library support. Python's GPIO library facilitated quick tests on the Raspberry Pi. Although not part of the final application, Python's contribution to the initial development and testing stages was instrumental.
+
+4. HTML & CSS: The client-side interface was built with HTML and CSS. HTML, the standard markup language for creating web pages, structured the content of the web interface. CSS, the language for describing the look and formatting of a document written in HTML, styled the web interface to ensure it was user-friendly and aesthetically pleasing.
+
+5. C++: On the ESP32 IoT device, C++ was utilized. Known for its efficiency and control, C++ is commonly used in embedded systems like the ESP32. It was responsible for the sensor data capture and the MQTT communication in the NexusHome Interface.
+
+By leveraging each of these languages in their appropriate contexts, we have created a robust, real-time, and user-friendly NexusHome Interface.
+
 ### Raspberry Pi-Based Server Application
 
 The server application, hosted on a Raspberry Pi, is the central nexus of the NexusHome Interface. Utilizing the powerful Node.js runtime environment and Express.js framework, it provides a dynamic web interface and RESTful API, thus enabling the control of peripherals such as a fan, an LED, and an LCD display.

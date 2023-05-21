@@ -132,6 +132,22 @@ In the realm of IoT, interconnectivity is paramount. NexusHome Interface shines 
 
 Overall, NexusHome Interface sets a new standard in home automation, blending the power of various technologies into a cohesive, intuitive, and responsive smart home solution. Its innovative design allows you to control the fan speed and LED light from anywhere within your local Wi-Fi network. This level of flexibility makes it a convenient and effective solution, shaping a seamless smart home experience adapted to your personal preferences. With NexusHome Interface, the control is truly in your hands, wherever you are in your home.
 
-## Pictures
+## Pictures (Hardare Components)
+
+![IMG_0389.jpg](NexusHome%20Interface%20Bridging%20the%20IoT%20&%20Networking%20%202ca35d9d6faf42cc8eb88041e8164ca4/IMG_0389.jpg)
+
+![IMG_0390.jpg](NexusHome%20Interface%20Bridging%20the%20IoT%20&%20Networking%20%202ca35d9d6faf42cc8eb88041e8164ca4/IMG_0390.jpg)
+
+![IMG_0391.jpg](NexusHome%20Interface%20Bridging%20the%20IoT%20&%20Networking%20%202ca35d9d6faf42cc8eb88041e8164ca4/IMG_0391.jpg)
+
+![IMG_0393.jpg](NexusHome%20Interface%20Bridging%20the%20IoT%20&%20Networking%20%202ca35d9d6faf42cc8eb88041e8164ca4/IMG_0393.jpg)
+
+![IMG_0398.jpg](NexusHome%20Interface%20Bridging%20the%20IoT%20&%20Networking%20%202ca35d9d6faf42cc8eb88041e8164ca4/IMG_0398.jpg)
+
+## UI (Desktop + Mob)
+
+![Untitled](NexusHome%20Interface%20Bridging%20the%20IoT%20&%20Networking%20%202ca35d9d6faf42cc8eb88041e8164ca4/Untitled.png)
+
+![Untitled](NexusHome%20Interface%20Bridging%20the%20IoT%20&%20Networking%20%202ca35d9d6faf42cc8eb88041e8164ca4/Untitled%201.png)
 
 # End.

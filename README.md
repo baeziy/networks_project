@@ -74,7 +74,7 @@ Key elements of the Raspberry Pi-based server application include:
 
 * **WebSocket Upgrade:** For real-time, bidirectional communication, HTTP connections are upgraded to WebSocket connections, keeping all connected clients synchronized with the changes in device states and sensor data.
 
-* **MQTT and WebSockets:** MQTT provides a reliable mechanism for IoT devices, ensuring robust real-time data transmission. WebSockets help maintain synchronization across all user interfaces.
+* **MQTT and WebSockets:** MQTT provides a reliable mechanism for IoT devices, ensuring robust real-time data transmission. The MQTT client at server side publishes the changed states of fan and led to the MQTT broker under the fan/speed and led/state topics. WebSockets help maintain synchronization across all user interfaces.
 
 * **Device Control Mechanism:** The server application uses BS170 N-Channel MOSFET to control the fan's speed. It sends PWM signals to the MOSFET, which adjusts the voltage supplied to the fan, enabling multiple levels of control - off, low, medium, and high.
 

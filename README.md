@@ -92,6 +92,27 @@ Key attributes of the ESP32 IoT device include:
 
 * **Reliable Data Transmission:** The ESP32 publishes the captured sensor readings to the MQTT broker under the 'temperature' and 'humidity' topics.
 
+## Working Flow of the NexusHome Interface Project
+Here's the detailed sequence of operations in the NexusHome Interface project:
+
+1. User Interaction: Users access the NexusHome Interface through a web browser on their device (e.g., a smartphone, tablet, or computer) by entering the IP address of the Raspberry Pi and the port number on which the server is running. The interface provides controls for adjusting the fan speed and the LED light state.
+
+2. HTTP Requests and WebSocket Upgrade: Upon a user interaction with the interface (e.g., to adjust the fan speed or change the LED state), the client-side JavaScript sends an HTTP request to the server with the desired device state. The server then upgrades the HTTP connection to a WebSocket connection to enable real-time, bidirectional communication.
+
+3. Server Processing and MQTT Messaging: The server, hosted on a Raspberry Pi, receives the request, processes it, and subsequently publishes an MQTT message with the updated device state to the MQTT broker.
+
+4. MQTT Messaging and Physical Device Control: An MQTT client running on the server, subscribed to the relevant MQTT topics, receives the message and makes the physical changes. If the request pertains to the fan speed, the server generates a PWM signal and sends it to the MOSFET controlling the fan. For a change in LED state, the server actuates the connected LED.
+
+5. ESP32 Environmental Sensing and MQTT Messaging: Concurrently, the ESP32 IoT device continuously monitors the ambient temperature and humidity using the DHT22 sensor. It publishes these sensor readings to the MQTT broker under the 'temperature' and 'humidity' topics at regular intervals.
+
+6. Server Updates and Real-Time Display: The server, also subscribed to these MQTT topics, receives the environmental data and updates the interface. The server also updates the LCD display connected to the Raspberry Pi to reflect the real-time ambient conditions and device states.
+
+7. WebSocket Communication: Through the WebSocket connection, the server sends the environmental data and device states to all connected clients, ensuring that all users have access to real-time, synchronized updates.
+
+8. User Interface Updates: The client-side JavaScript on each connected device receives these WebSocket messages and updates the interface in real time, giving users instant feedback on their actions and the current state of the environment.
+
+This workflow sequence repeats as long as the system is operational, ensuring a seamless, real-time, and interactive home automation experience for users.
+
 ## The NexusHome Experience
 
 NexusHome Interface elevates the smart home experience. It's more than a system—it's a custom-tailored environment at your fingertips. Whether it's adjusting the fan's speed in response to room temperature or controlling the LED's state according to your schedule, NexusHome empowers you.

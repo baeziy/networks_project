@@ -106,11 +106,11 @@ socket.addEventListener('message', function (event) {
     }
 
     if (data.temperature !== undefined) {
-        document.getElementById("temperature").innerHTML = data.temperature;
+        document.getElementById("temperature").innerHTML = data.temperature + "C";
         console.log('New temperature:', data.temperature);
     }
     if (data.humidity !== undefined) {
-        document.getElementById("humidity").innerHTML = data.humidity;
+        document.getElementById("humidity").innerHTML = data.humidity + "%";
         console.log('New humidity:', data.humidity);
     }
 });

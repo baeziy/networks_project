@@ -7,8 +7,8 @@
 #define DHTTYPE DHT22   // DHT 22
 
 // Replace with your network credentials
-const char* ssid = "notforboomers";
-const char* password = "Allahisgreat1";
+const char* ssid = "WiFi-Students-A";
+const char* password = "FccWiFi5500";
 
 // Replace with your MQTT broker IP address
 const char* mqtt_server = "172.30.70.83";

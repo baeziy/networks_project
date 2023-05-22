@@ -11,7 +11,7 @@ const char* ssid = "notforboomers";
 const char* password = "Allahisgreat1";
 
 // Replace with your MQTT broker IP address
-const char* mqtt_server = "192.168.18.70";
+const char* mqtt_server = "172.30.70.83";
 const int mqtt_port = 1884;
 
 DHT dht(DHTPIN, DHTTYPE);

@@ -1,4 +1,4 @@
-const socket = new WebSocket('ws://192.168.18.70:3000');
+const socket = new WebSocket('ws://172.30.70.83:3000');
 
 socket.addEventListener('message', function (event) {
     const data = JSON.parse(event.data);

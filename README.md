@@ -2,7 +2,7 @@
 
 ## Team Members
 
-- Omair Ahmed
+- Omair Ahmad
 - Sarmad Sabir
 - Muhammad Mustafa Kamal Malik
 
